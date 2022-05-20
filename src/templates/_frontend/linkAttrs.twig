@@ -18,6 +18,7 @@
     orientation: asset.width == asset.height ? "square" : asset.width > asset.height ? "landscape" : "portrait",
     srcset: settings.responsiveTransforms ?  "#{asset.getUrl({mode: 'fit', width: settings.transformSizeSm, height: settings.transformSizeSm})},#{asset.getUrl({mode: 'fit', width: settings.transformSizeMd, height: settings.transformSizeMd})},#{asset.getUrl({mode: 'fit', width: settings.transformSizeLg, height: settings.transformSizeLg})},#{asset.getUrl({mode: 'fit', width: settings.transformSizeXl, height: settings.transformSizeXl})}" : null,
     title: asset.alt is empty ? settings.titleAsCaption ? asset.title : '' : asset.alt,
+    url: asset.url,
   },
 } %}
 

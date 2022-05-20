@@ -33,4 +33,7 @@ return [
     "ARROW_LEFT_LABEL" => "An arrow pointing left",
     "ARROW_RIGHT_LABEL" => "An arrow pointing right",
     "CROSS_LABEL" => "A cross symbol",
+
+    // Misc
+    "UNSUPPORTED_FILETYPE" => "Unsupported filetype: {ext}",
 ];

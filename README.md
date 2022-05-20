@@ -142,6 +142,10 @@ return [
 - **Why use `a` tags for image links?**
   This is mostly personal preference, but the gallery uses `a` tags by default (as opposed to `button` elements to ensure that the user does not lose built-in browser functionality such as _Save link as..._).
 
+## Roadmap
+
+- Support for custom transforms / Imager X etc
+
 ## Licence
 
 TBD

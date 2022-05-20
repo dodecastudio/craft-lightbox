@@ -37,9 +37,9 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsi
   const openLightbox = () => {
     const galleryTotal = lightboxGalleries[lightboxSettings.currentGallery].images.length;
     const galleryTitle = lightboxGalleries[lightboxSettings.currentGallery].title;
-    let galleryDescription = galleryTotal == 1 ? translations.LIGHTBOX_UNTITLED_DYNAMIC_LABEL_s : translations.LIGHTBOX_UNTITLED_DYNAMIC_LABEL_p;
+    let galleryDescription = galleryTotal == 1 ? translations.UNTITLED_DYNAMIC_LABEL_s : translations.UNTITLED_DYNAMIC_LABEL_p;
     if (galleryTitle !== 'untitled') {
-      galleryDescription = galleryTotal == 1 ? translations.LIGHTBOX_DYNAMIC_LABEL_s : translations.LIGHTBOX_DYNAMIC_LABEL_p;
+      galleryDescription = galleryTotal == 1 ? translations.DYNAMIC_LABEL_s : translations.DYNAMIC_LABEL_p;
     }
     galleryDescription = galleryDescription.replace('{total}', galleryTotal);
     galleryDescription = galleryDescription.replace('{title}', galleryTitle);
@@ -59,7 +59,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsi
       window.initialFocus.focus();
     }
     lightbox.style.display = 'none';
-    lightbox.setAttribute('aria-label', translations.LIGHTBOX_LABEL);
+    lightbox.setAttribute('aria-label', translations.LABEL);
     lightbox.setAttribute('aria-hidden', true);
     body.classList.remove('disablescroll');
     lightboxSettings.current = -1;
@@ -167,7 +167,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsi
 
   // HTML template for a lightbox image
   const lightboxImageTemplate = (i) => {
-    const { image, mimetype, srcsetImages, title } = lightboxGalleries[lightboxSettings.currentGallery].images[i];
+    const { mimetype, srcsetImages, title, url } = lightboxGalleries[lightboxSettings.currentGallery].images[i];
     const isSupported = lightboxSettings.supportedResponsiveMimeTypes.includes(mimetype);
     if (isSupported && responsive) {
       return `
@@ -177,7 +177,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsi
             srcset="${srcsetSizes.map((size, i) => {
               return `${srcsetImages[i]} ${size}w,`;
             })}
-            ${srcsetImages[0]}" />
+            ${url}" />
           <img
             alt=""
             class="${cssClasses.lightboxImage}"
@@ -186,13 +186,17 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsi
         </picture>
       `;
     }
-    // aria-labelledby="${identifier}-info-caption"
+    // Do we have an image?
+    if (mimetype.indexOf('image') < 0) {
+      const ext = mimetype.substring(mimetype.lastIndexOf('/') + 1);
+      return `<p style="text-align: center;">${translations.UNSUPPORTED_FILETYPE.replace('{ext}', ext)}<br/><a href="${url}" target="_blank">${title}</a><br/>${url.substring(url.lastIndexOf('/') + 1)}</p>`;
+    }
     return `
       <img
         alt="${title}"
         class="${cssClasses.lightboxImage}"
         loading="lazy"
-        src="${image}" />
+        src="${url}" />
     `;
   };
 
@@ -270,19 +274,18 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsi
       }
 
       // Dataset attrs
-      const { title, orientation, srcset, mimetype, ref, permalink, averagecolor } = lightboxLink.dataset;
+      const { averagecolor = null, mimetype, orientation, ref = null, srcset, title, url } = lightboxLink.dataset;
 
       // Add to lightbox images array for this gallery
       lightboxGalleries[galleryRef].images.push({
-        image: lightboxLink.href,
-        title: title,
-        orientation: orientation,
+        url,
+        title,
+        orientation,
         srcsetImages: srcset.split(','),
-        mimetype: mimetype,
-        ref: ref || null,
+        mimetype,
+        ref,
         gallery: galleryRef,
-        permalink: permalink || null,
-        averageColor: averagecolor || null,
+        averagecolor,
       });
 
       const currentIndex = lightboxGalleries[galleryRef].images.length - 1;

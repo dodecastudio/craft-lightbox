@@ -1,6 +1,11 @@
 {# Settings #}
 {% set settings = settings ?? false %}
 
+{# Custom markup #}
+{% set closeButton = closeButton ?? false %}
+{% set previousButton = previousButton ?? false %}
+{% set nextButton = nextButton ?? false %}
+
 
 {# Render Lightbox HTML #}
 {% if settings %}
@@ -11,13 +16,25 @@
 <div id="{{settings.identifier}}-modal" role="dialog" aria-hidden="true" aria-label="{{"LABEL"|t("lightbox")}}" class="{{settings.cssClassLightboxModal}} {{settings.cssClassesLightboxModal}}" data-showcaptions="{{settings.showImageCaptions}}" data-showcounter="{{settings.showImageCounter}}" style="display: none;">
   <div id="{{settings.identifier}}-container" tabindex="0" class="{{settings.cssClassLightboxContainer}} {{settings.cssClassesLightboxContainer}}">
     <button type="button" class="{{settings.cssClassLightboxControlClose}} {{settings.cssClassesLightboxControlClose}}" id="{{settings.identifier}}-control-close" aria-label="{{"CLOSE_LABEL"|t("lightbox")}}" aria-controls="df-lightbox">
-      <svg role="img" class="{{settings.cssClassLightboxControlCloseSvg}} {{settings.cssClassesLightboxControlCloseSvg}}" aria-label="{{"CROSS_LABEL"|t("lightbox")}}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      {% if closeButton %}
+        {{closeButton|raw}}
+      {% else %}
+        <svg role="img" class="{{settings.cssClassLightboxControlCloseSvg}} {{settings.cssClassesLightboxControlCloseSvg}}" aria-label="{{"CROSS_LABEL"|t("lightbox")}}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      {% endif %}
     </button>
     <button type="button" class="{{settings.cssClassLightboxControlPrevious}} {{settings.cssClassesLightboxControlPrevious}}" id="{{settings.identifier}}-control-previous" aria-label="{{"PREVIOUS_LABEL"|t("lightbox")}}" aria-controls="{{settings.identifier}}-updatearea">
-      <svg role="img" class="{{settings.cssClassLightboxControlPreviousSvg}} {{settings.cssClassesLightboxControlPreviousSvg}}" aria-label="{{"ARROW_LEFT_LABEL"|t("lightbox")}}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+      {% if previousButton %}
+        {{previousButton|raw}}
+      {% else %}
+        <svg role="img" class="{{settings.cssClassLightboxControlPreviousSvg}} {{settings.cssClassesLightboxControlPreviousSvg}}" aria-label="{{"ARROW_LEFT_LABEL"|t("lightbox")}}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+      {% endif %}
     </button>
     <button type="button" class="{{settings.cssClassLightboxControlNext}} {{settings.cssClassesLightboxControlNext}}" id="{{settings.identifier}}-control-next" aria-label="{{"NEXT_LABEL"|t("lightbox")}}" aria-controls="{{settings.identifier}}-updatearea">
-      <svg role="img" class="{{settings.cssClassLightboxControlNextSvg}} {{settings.cssClassesLightboxControlNextSvg}}" aria-label="{{"ARROW_RIGHT_LABEL"|t("lightbox")}}" fill="none" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      {% if nextButton %}
+        {{nextButton|raw}}
+      {% else %}
+        <svg role="img" class="{{settings.cssClassLightboxControlNextSvg}} {{settings.cssClassesLightboxControlNextSvg}}" aria-label="{{"ARROW_RIGHT_LABEL"|t("lightbox")}}" fill="none" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+      {% endif %}
     </button>
     <div id="{{settings.identifier}}-updatearea" role="region" aria-live="polite" class="{{settings.cssClassLightboxContent}} {{settings.cssClassesLightboxContent}}">
       <p class="{{settings.cssClassLightboxInfoTotal}} {{settings.cssClassesLightboxInfoTotal}}" id="{{settings.identifier}}-info-total" style="display: none;"></p>
@@ -310,11 +327,12 @@ var lightboxSettings = {
   responsive: {{settings.responsiveTransforms ? 'true' : 'false'}},
   srcsetSizes: [{{settings.transformSizeSm}}, {{settings.transformSizeMd}}, {{settings.transformSizeLg}},{{settings.transformSizeXl}}],
   translations: {
-    LIGHTBOX_LABEL: '{{"LABEL"|t("lightbox")}}',
-    LIGHTBOX_DYNAMIC_LABEL_s: '{{"DYNAMIC_LABEL_s"|t("lightbox")}}',
-    LIGHTBOX_DYNAMIC_LABEL_p: '{{"DYNAMIC_LABEL_p"|t("lightbox")}}',
-    LIGHTBOX_UNTITLED_DYNAMIC_LABEL_s: '{{"UNTITLED_DYNAMIC_LABEL_s"|t("lightbox")}}',
-    LIGHTBOX_UNTITLED_DYNAMIC_LABEL_p: '{{"UNTITLED_DYNAMIC_LABEL_p"|t("lightbox")}}'
+    LABEL: '{{"LABEL"|t("lightbox")}}',
+    DYNAMIC_LABEL_s: '{{"DYNAMIC_LABEL_s"|t("lightbox")}}',
+    DYNAMIC_LABEL_p: '{{"DYNAMIC_LABEL_p"|t("lightbox")}}',
+    UNTITLED_DYNAMIC_LABEL_s: '{{"UNTITLED_DYNAMIC_LABEL_s"|t("lightbox")}}',
+    UNTITLED_DYNAMIC_LABEL_p: '{{"UNTITLED_DYNAMIC_LABEL_p"|t("lightbox")}}',
+    UNSUPPORTED_FILETYPE: '{{"UNSUPPORTED_FILETYPE"|t("lightbox")}}',
   }
 };
 document.addEventListener('DOMContentLoaded', () => window.initLightbox(lightboxSettings));
