@@ -1,0 +1,322 @@
+{# Settings #}
+{% set settings = settings ?? false %}
+
+
+{# Render Lightbox HTML #}
+{% if settings %}
+
+{% html at endBody %}
+{% apply spaceless %}
+
+<div id="{{settings.identifier}}-modal" role="dialog" aria-hidden="true" aria-label="{{"LABEL"|t("lightbox")}}" class="{{settings.cssClassLightboxModal}} {{settings.cssClassesLightboxModal}}" data-showcaptions="{{settings.showImageCaptions}}" data-showcounter="{{settings.showImageCounter}}" style="display: none;">
+  <div id="{{settings.identifier}}-container" tabindex="0" class="{{settings.cssClassLightboxContainer}} {{settings.cssClassesLightboxContainer}}">
+    <button type="button" class="{{settings.cssClassLightboxControlClose}} {{settings.cssClassesLightboxControlClose}}" id="{{settings.identifier}}-control-close" aria-label="{{"CLOSE_LABEL"|t("lightbox")}}" aria-controls="df-lightbox">
+      <svg role="img" class="{{settings.cssClassLightboxControlCloseSvg}} {{settings.cssClassesLightboxControlCloseSvg}}" aria-label="{{"CROSS_LABEL"|t("lightbox")}}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    </button>
+    <button type="button" class="{{settings.cssClassLightboxControlPrevious}} {{settings.cssClassesLightboxControlPrevious}}" id="{{settings.identifier}}-control-previous" aria-label="{{"PREVIOUS_LABEL"|t("lightbox")}}" aria-controls="{{settings.identifier}}-updatearea">
+      <svg role="img" class="{{settings.cssClassLightboxControlPreviousSvg}} {{settings.cssClassesLightboxControlPreviousSvg}}" aria-label="{{"ARROW_LEFT_LABEL"|t("lightbox")}}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+    </button>
+    <button type="button" class="{{settings.cssClassLightboxControlNext}} {{settings.cssClassesLightboxControlNext}}" id="{{settings.identifier}}-control-next" aria-label="{{"NEXT_LABEL"|t("lightbox")}}" aria-controls="{{settings.identifier}}-updatearea">
+      <svg role="img" class="{{settings.cssClassLightboxControlNextSvg}} {{settings.cssClassesLightboxControlNextSvg}}" aria-label="{{"ARROW_RIGHT_LABEL"|t("lightbox")}}" fill="none" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+    </button>
+    <div id="{{settings.identifier}}-updatearea" role="region" aria-live="polite" class="{{settings.cssClassLightboxContent}} {{settings.cssClassesLightboxContent}}">
+      <p class="{{settings.cssClassLightboxInfoTotal}} {{settings.cssClassesLightboxInfoTotal}}" id="{{settings.identifier}}-info-total" style="display: none;"></p>
+      <div class="{{settings.cssClassLightboxFrame}} {{settings.cssClassesLightboxFrame}}" id="{{settings.identifier}}-frame"></div>
+      <p class="{{settings.cssClassLightboxInfoCaption}} {{settings.cssClassesLightboxInfoCaption}}" id="{{settings.identifier}}-info-caption" style="display: none;"></p>
+    </div>
+  </div>
+</div>
+
+{% endapply %}
+{% endhtml %}
+
+
+
+
+{# Essential CSS #}
+{% if settings.includeEssentialCss %}
+{% css %}
+#{{settings.identifier}}-modal.{{settings.cssClassLightboxModal}} {
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxContainer}} {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlClose}} {
+  position: absolute;
+  z-index: 5;
+  top: 1rem;
+  right: 1rem;
+}
+{# #{{settings.identifier}}-modal .{{settings.cssClassLightboxControlCloseSvg}} {} #}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlPrevious}} {
+  position: absolute;
+  z-index: 5;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+{# #{{settings.identifier}}-modal .{{settings.cssClassLightboxControlPreviousSvg}} { } #}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlNext}} {
+  position: absolute;
+  z-index: 5;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+{# #{{settings.identifier}}-modal .{{settings.cssClassLightboxControlNextSvg}} { } #}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxContent}} {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxFrame}} {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxPicture}} { 
+  width: 100%;
+  height: 100%;
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxImage}} { 
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  z-index: 1;
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxInfoTotal}} {
+  position: absolute;
+  z-index: 5;
+  display: inline-block;
+  top: 1rem;
+  left: 1rem;
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxInfoCaption}} {
+  position: absolute;
+  bottom: 1rem;
+  z-index: 1;
+}
+{# #{{settings.identifier}}-modal .{{settings.cssClassGallery}} { } #}
+{# #{{settings.identifier}}-modal .{{settings.cssClassGalleryLink}} { } #}
+{# #{{settings.identifier}}-modal .{{settings.cssClassGalleryImage}} { } #}
+#{{settings.identifier}}-modal .{{settings.cssClassScreenReaderOnly}} { 
+  position:absolute;
+  z-index: 5;
+  width:1px;
+  height:1px;
+  padding:0;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  -webkit-clip-path:inset(50%);
+  clip-path:inset(50%);
+  border:0;
+}
+{% endcss %}
+{% endif %}
+
+
+{# Decorative CSS #}
+{% if settings.includeDecorativeCss %}
+{% css %}
+#{{settings.identifier}}-modal.{{settings.cssClassLightboxModal}} {
+  background-color: hsla(210, 18%, 96%, 1);
+  transition-property: background-color;
+  transition-duration: 250ms;
+  transition-timing-function: ease-in;
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxContainer}} {
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlClose}} {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background-color: hsla(210, 16%, 93%, 1);
+  cursor: pointer;
+  border-radius: 0.25rem;
+  width: 4rem;
+  height: 4rem;
+  box-shadow: 0 0.2rem 1rem hsla(0, 0%, 0%, 0.2);
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlClose}}:hover,
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlClose}}:focus {
+  background-color: hsla(210, 15%, 89%, 1);
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlClose}}[aria-disabled="true"],
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlClose}}:disabled {
+  opacity: .35;
+  cursor: auto;
+  pointer-events: none;
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlCloseSvg}} {
+  width: 3rem;
+  height: 3rem;
+  stroke: hsla(216, 9%, 4%, 1);
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlPrevious}} {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background-color: hsla(210, 16%, 93%, 1);
+  cursor: pointer;
+  border-radius: 0.25rem;
+  width: 3rem;
+  height: 6rem;
+  box-shadow: 0 0.2rem 1rem hsla(0, 0%, 0%, 0.2);
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlPrevious}}:hover,
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlPrevious}}:focus {
+  background-color: hsla(210, 15%, 89%, 1);
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlPrevious}}[aria-disabled="true"],
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlPrevious}}:disabled {
+  opacity: .35;
+  cursor: auto;
+  pointer-events: none;
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlPreviousSvg}} { 
+  stroke: hsla(216, 9%, 4%, 1);
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlNext}} {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background-color: hsla(210, 16%, 93%, 1);
+  cursor: pointer;
+  border-radius: 0.25rem;
+  width: 3rem;
+  height: 6rem;
+  box-shadow: 0 0.2rem 1rem hsla(0, 0%, 0%, 0.2);
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlNext}}:hover,
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlNext}}:focus {
+  background-color: hsla(210, 15%, 89%, 1);
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlNext}}[aria-disabled="true"],
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlNext}}:disabled {
+  opacity: .35;
+  cursor: auto;
+  pointer-events: none;
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxControlNextSvg}} { 
+  stroke: hsla(216, 9%, 4%, 1);
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxContent}} {
+  transition-property: transform;
+  transition-duration: 250ms;
+  transition-timing-function: ease-in;
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxImageLoading}}:after {
+  content: " ";
+  position: absolute;
+  z-index: 0;
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border-width: 6px;
+  border-style: solid;
+  border-color: hsla(216, 9%, 4%, 0.5) transparent hsla(216, 9%, 4%, 1) transparent;
+  animation: {{settings.identifier}}-loading-animation 1.2s linear infinite;
+}
+@keyframes {{settings.identifier}}-loading-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+{# #{{settings.identifier}}-modal .{{settings.cssClassLightboxFrame}} {} #}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxPicture}} { 
+  width: 100%;
+  height: 100%;
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxImage}} { 
+  background-color: transparent;
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxInfoTotal}} {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 4rem;
+  min-width: 4rem;
+  font-size: 1.3rem;
+  background-color: hsla(216, 9%, 4%, 1);
+  color: hsl(0, 0%, 100%);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 0.25rem;
+}
+#{{settings.identifier}}-modal .{{settings.cssClassLightboxInfoCaption}} {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 3rem;
+  padding: 0.25rem;
+  font-size: 1.3rem;
+  line-height: 130%;
+  background-color: hsla(216, 9%, 4%, 1);
+  color: hsl(0, 0%, 100%);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 0.25rem;
+}
+{# #{{settings.identifier}}-modal .{{settings.cssClassGallery}} { } #}
+{# #{{settings.identifier}}-modal .{{settings.cssClassGalleryLink}} { } #}
+{# #{{settings.identifier}}-modal .{{settings.cssClassGalleryImage}} { } #}
+
+{% endcss %}
+{% endif %}
+
+
+{# Render JavaScript #}
+{% do view.registerAssetBundle('dodecastudio\\lightbox\\assetbundles\\LightboxAsset') %}
+{% js %}
+var lightboxSettings = {
+  cssClasses: {
+    lightboxImageLoading: '{{settings.cssClassLightboxImageLoading}}',
+    lightboxPicture: '{{settings.cssClassLightboxPicture}}',
+    lightboxImage: '{{settings.cssClassLightboxImage}}', 
+    screenReaderOnly: '{{settings.cssClassScreenReaderOnly}}',
+    screenReaderOnlyClasses: '{{settings.cssClassesScreenReaderOnly}}',
+  },
+  identifier: '{{settings.identifier}}',
+  launchLightboxCssClass: '{{settings.launchLightboxCssClass}}',
+  responsive: {{settings.responsiveTransforms ? 'true' : 'false'}},
+  srcsetSizes: [{{settings.transformSizeSm}}, {{settings.transformSizeMd}}, {{settings.transformSizeLg}},{{settings.transformSizeXl}}],
+  translations: {
+    LIGHTBOX_LABEL: '{{"LABEL"|t("lightbox")}}',
+    LIGHTBOX_DYNAMIC_LABEL_s: '{{"DYNAMIC_LABEL_s"|t("lightbox")}}',
+    LIGHTBOX_DYNAMIC_LABEL_p: '{{"DYNAMIC_LABEL_p"|t("lightbox")}}',
+    LIGHTBOX_UNTITLED_DYNAMIC_LABEL_s: '{{"UNTITLED_DYNAMIC_LABEL_s"|t("lightbox")}}',
+    LIGHTBOX_UNTITLED_DYNAMIC_LABEL_p: '{{"UNTITLED_DYNAMIC_LABEL_p"|t("lightbox")}}'
+  }
+};
+document.addEventListener('DOMContentLoaded', () => window.initLightbox(lightboxSettings));
+{% endjs %}
+{% endif %}

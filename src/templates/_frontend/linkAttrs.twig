@@ -1,0 +1,27 @@
+{% apply spaceless %}
+
+{# Settings #}
+{% set asset = asset ?? false %}
+{% set galleryRef = galleryRef ? galleryRef|kebab : "now"|date('isu') %}
+{% set settings = settings ?? false %}
+
+{# Render link to launch lightbox #}
+{% set linkAttrs = {
+  class: [settings.cssClassGalleryLink, settings.cssClassesGalleryLink, settings.launchLightboxCssClass],
+  data: {
+    averagecolor: settings.useAverageColorThemeing ? craft.app.plugins.getPlugin('blur-hash') ? averageColor(asset).hsl() : null : null,
+    gallery: "#{settings.identifier}-gallery-#{galleryRef}",
+    aria: {
+      controls: "#{settings.identifier}-modal",
+    },
+    mimetype: asset.mimeType,
+    orientation: asset.width == asset.height ? "square" : asset.width > asset.height ? "landscape" : "portrait",
+    srcset: settings.responsiveTransforms ?  "#{asset.getUrl({mode: 'fit', width: settings.transformSizeSm, height: settings.transformSizeSm})},#{asset.getUrl({mode: 'fit', width: settings.transformSizeMd, height: settings.transformSizeMd})},#{asset.getUrl({mode: 'fit', width: settings.transformSizeLg, height: settings.transformSizeLg})},#{asset.getUrl({mode: 'fit', width: settings.transformSizeXl, height: settings.transformSizeXl})}" : null,
+    title: asset.alt is empty ? settings.titleAsCaption ? asset.title : '' : asset.alt,
+  },
+} %}
+
+{# Output #}
+{{attr(linkAttrs)}}
+
+{% endapply %}

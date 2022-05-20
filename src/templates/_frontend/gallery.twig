@@ -1,0 +1,43 @@
+{# Settings #}
+{% set assets = assets ?? false %}
+{% set galleryTitle = title|default(null) %}
+{% set galleryRef = galleryRef ? galleryRef|kebab : galleryTitle ? galleryTitle|kebab : "now"|date('isu') %}
+{% set settings = settings ?? false %}
+
+{# Render gallery of items #}
+{% if assets and settings %}
+
+{% apply spaceless %}
+
+<div id="{{settings.identifier}}-gallery-{{galleryRef}}" class="{{settings.cssClassGallery}} {{settings.cssClassesGallery}}" data-title="{{galleryTitle}}" data-ref="{{galleryRef}}">
+{% for asset in assets %}  
+  <a href="{{asset.url}}" {{ craft.lightbox.linkAttrs(asset, galleryRef) }}>
+    <img src="{{asset.url}}" class="{{settings.cssClassGalleryImage}} {{settings.cssClassesGalleryImage}}" alt="{{asset.alt is empty ? settings.titleAsCaption ? asset.title : '' : asset.alt}}"/>
+  </a>
+{% endfor %}
+</div>
+
+{% endapply %}
+
+{# Decorative CSS #}
+{% if settings.includeDecorativeCss %}
+{% css %}
+.{{settings.cssClassGallery}} {
+  display: grid;
+  grid-gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  width: 100%;
+}
+.{{settings.cssClassGallery}} a.{{settings.cssClassGalleryLink}} {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.{{settings.cssClassGallery}} img.{{settings.cssClassGalleryImage}} {
+  width: auto;
+  height: auto;
+}
+{% endcss %}
+{% endif %}
+
+{% endif %}

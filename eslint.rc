@@ -1,0 +1,49 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": ["airbnb"],
+  "rules": {
+    "class-methods-use-this": "off",
+    "default-case": "off",
+    "function-paren-newline": "off",
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": []
+      }
+    ],
+    "key-spacing": "off",
+    "lines-between-class-members": [
+      "error",
+      "always",
+      {
+        "exceptAfterSingleLine": true
+      }
+    ],
+    "max-len": [2, 256],
+    "no-multi-spaces": "off",
+    "no-unused-vars": "warn",
+    "object-curly-newline": [
+      "error",
+      {
+        "ObjectPattern": {
+          "multiline": true
+        }
+      }
+    ],
+    "operator-linebreak": "off",
+    "padded-blocks": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "babel-module": {
+        "root": ["./", "./src"]
+      }
+    }
+  }
+}
