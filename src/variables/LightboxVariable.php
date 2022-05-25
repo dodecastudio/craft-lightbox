@@ -36,7 +36,7 @@ class LightboxVariable
       return Template::raw($template);
   }
 
-  public function lightbox(String $closeButton = null, String $previousButton = null, String $nextButton = null) : Markup
+  public function render(String $closeButton = null, String $previousButton = null, String $nextButton = null) : Markup
   {
       $template = Craft::$app->getView()->renderTemplate('lightbox/_frontend/lightbox.twig', [
         'settings' => Lightbox::getInstance()->getSettings(),

@@ -193,7 +193,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsi
     }
     return `
       <img
-        alt="${title}"
+        alt=""
         class="${cssClasses.lightboxImage}"
         loading="lazy"
         src="${url}" />

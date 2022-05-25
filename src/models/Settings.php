@@ -117,7 +117,7 @@ class Settings extends Model
     public string $cssClassLightboxInfoCaption = 'clb-caption';
     public string $cssClassesLightboxInfoCaption = '';
 
-    // CSS Classes that wraps the gallery elements
+    // CSS Classes for the gallery container
     public string $cssClassGallery = 'clb-gallery-wrapper';
     public string $cssClassesGallery = '';
 
