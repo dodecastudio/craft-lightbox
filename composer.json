@@ -16,7 +16,7 @@
   ],
   "support": {
     "source": "https://github.com/dodecastudio/craft-lightbox",
-    "docs": "https://github.com/dodecastudio/craft-lightbox/blob/main/README.md",
+    "docs": "https://github.com/dodecastudio/craft-lightbox/blob/craft-v4/README.md",
     "issues": "https://github.com/dodecastudio/craft-lightbox/issues"
   },
   "authors": [
@@ -38,8 +38,8 @@
     "handle": "lightbox",
     "developer": "Dodeca Studio",
     "developerUrl": "https://dodeca.studio",
-    "documentationUrl": "https://github.com/dodecastudio/craft-lightbox/blob/main/README.md",
-    "changelogUrl": "https://github.com/dodecastudio/craft-lightbox/blob/main/CHANGELOG.md",
+    "documentationUrl": "https://github.com/dodecastudio/craft-lightbox/blob/craft-v4/README.md",
+    "changelogUrl": "https://github.com/dodecastudio/craft-lightbox/blob/craft-v4/CHANGELOG.md",
     "class": "dodecastudio\\lightbox\\lightbox"
   }
 }

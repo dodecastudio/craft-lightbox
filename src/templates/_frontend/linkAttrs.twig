@@ -4,7 +4,7 @@
 {% set asset = asset ?? false %}
 {% set galleryRef = galleryRef ? galleryRef|kebab : "now"|date('isu') %}
 {% set settings = settings ?? false %}
-{% set title = asset.alt is empty ? settings.titleAsCaption ? asset.title : '' : asset.alt %}
+{% set title = settings.titleAsCaption ? asset.title : asset.alt is defined ? asset.alt : '' %}
 
 {# Render link to launch lightbox #}
 {% set linkAttrs = {
