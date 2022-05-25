@@ -380,7 +380,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsi
 
     // Click outside the lightbox content to close
     lightbox.addEventListener('click', (e) => {
-      if (e.target.id === 'df-lightbox') {
+      if (e.target.id === `${identifier}-modal`) {
         e.preventDefault();
         closeLightbox();
       }

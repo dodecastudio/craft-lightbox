@@ -15,7 +15,7 @@
 
 <div id="{{settings.identifier}}-modal" role="dialog" aria-hidden="true" aria-label="{{"LABEL"|t("lightbox")}}" class="{{settings.cssClassLightboxModal}} {{settings.cssClassesLightboxModal}}" data-showcaptions="{{settings.showImageCaptions}}" data-showcounter="{{settings.showImageCounter}}" style="display: none;">
   <div id="{{settings.identifier}}-container" tabindex="0" class="{{settings.cssClassLightboxContainer}} {{settings.cssClassesLightboxContainer}}">
-    <button type="button" class="{{settings.cssClassLightboxControlClose}} {{settings.cssClassesLightboxControlClose}}" id="{{settings.identifier}}-control-close" aria-label="{{"CLOSE_LABEL"|t("lightbox")}}" aria-controls="df-lightbox">
+    <button type="button" class="{{settings.cssClassLightboxControlClose}} {{settings.cssClassesLightboxControlClose}}" id="{{settings.identifier}}-control-close" aria-label="{{"CLOSE_LABEL"|t("lightbox")}}" aria-controls="{{settings.identifier}}-modal">
       {% if closeButton %}
         {{closeButton|raw}}
       {% else %}
