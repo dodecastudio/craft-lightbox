@@ -52,3 +52,17 @@ export const isFocusable = (element) => {
       return false;
   }
 };
+
+export const addMultiple = (element, classList = '') => {
+  const classArray = classList != '' ? classList.split(' ') : [];
+  if (classArray.length > 0) {
+    element.classList.add(...classArray);
+  }
+};
+
+export const removeMultiple = (element, classList = '') => {
+  const classArray = classList != '' ? classList.split(' ') : [];
+  if (classArray.length > 0) {
+    element.classList.remove(...classArray);
+  }
+};

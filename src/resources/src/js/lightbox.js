@@ -1,5 +1,5 @@
 // Dependencies
-import { focusFirstDescendant, focusableElements } from './utils.js';
+import { addMultiple, focusFirstDescendant, focusableElements, removeMultiple } from './utils.js';
 
 // Lightbox functionality
 const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsive, srcsetSizes, translations }) => {
@@ -47,7 +47,8 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsi
     lightbox.setAttribute('aria-label', galleryDescription);
     lightbox.style.display = 'flex';
     lightbox.setAttribute('aria-hidden', false);
-    body.classList.add('disablescroll');
+    body.classList.add(cssClasses.disableScroll);
+    addMultiple(body, cssClasses.disableScrollClasses);
     lightboxSettings.open = true;
     lightboxWrapper.focus();
     focusFirstDescendant(lightboxWrapper, lightboxClose);
@@ -61,7 +62,8 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsi
     lightbox.style.display = 'none';
     lightbox.setAttribute('aria-label', translations.LABEL);
     lightbox.setAttribute('aria-hidden', true);
-    body.classList.remove('disablescroll');
+    body.classList.remove(cssClasses.disableScroll);
+    removeMultiple(body, cssClasses.disableScrollClasses);
     lightboxSettings.current = -1;
     lightboxSettings.open = false;
     lightboxTotal.style.display = 'none';

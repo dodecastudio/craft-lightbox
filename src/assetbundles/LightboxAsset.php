@@ -23,7 +23,7 @@ class LightboxAsset extends AssetBundle
         $this->sourcePath = '@dodecastudio/lightbox/resources/dist';
 
         $this->js = [
-            'js/lightbox.js',
+            'js/lightbox-min.js',
         ];
 
         parent::init();

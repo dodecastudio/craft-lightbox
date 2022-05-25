@@ -306,6 +306,12 @@
 {# #{{settings.identifier}}-modal .{{settings.cssClassGallery}} { } #}
 {# #{{settings.identifier}}-modal .{{settings.cssClassGalleryLink}} { } #}
 {# #{{settings.identifier}}-modal .{{settings.cssClassGalleryImage}} { } #}
+.{{settings.cssClassDisableScroll}} { 
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
 
 {% endcss %}
 {% endif %}
@@ -321,6 +327,8 @@ var lightboxSettings = {
     lightboxImage: '{{settings.cssClassLightboxImage}}', 
     screenReaderOnly: '{{settings.cssClassScreenReaderOnly}}',
     screenReaderOnlyClasses: '{{settings.cssClassesScreenReaderOnly}}',
+    disableScroll: '{{settings.cssClassDisableScroll}}',
+    disableScrollClasses: '{{settings.cssClassesDisableScroll}}',
   },
   identifier: '{{settings.identifier}}',
   launchLightboxCssClass: '{{settings.launchLightboxCssClass}}',
