@@ -60,4 +60,16 @@ class LightboxVariable
       return Template::raw($template);
   }
 
+  public function galleryAttrs(String $galleryRef = null, String $title = null) : Markup
+  {
+
+      $template = Craft::$app->getView()->renderTemplate('lightbox/_frontend/galleryAttrs.twig', [
+        'galleryRef' => $galleryRef,
+        'title' => $title,
+        'settings' => Lightbox::getInstance()->getSettings(),
+      ], View::TEMPLATE_MODE_CP);
+
+      return Template::raw($template);
+  }
+
 }

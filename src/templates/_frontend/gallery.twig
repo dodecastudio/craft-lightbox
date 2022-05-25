@@ -1,7 +1,7 @@
 {# Settings #}
 {% set assets = assets ?? false %}
-{% set galleryTitle = title|default(null) %}
 {% set galleryRef = galleryRef ? galleryRef|kebab : galleryTitle ? galleryTitle|kebab : "now"|date('isu') %}
+{% set galleryTitle = title|default(null) %}
 {% set settings = settings ?? false %}
 
 {# Render gallery of items #}
@@ -9,7 +9,7 @@
 
 {% apply spaceless %}
 
-<div id="{{settings.identifier}}-gallery-{{galleryRef}}" class="{{settings.cssClassGallery}} {{settings.cssClassesGallery}}" data-title="{{galleryTitle}}" data-ref="{{galleryRef}}">
+<div {{ craft.lightbox.galleryAttrs(galleryRef, galleryTitle) }}>
 {% for asset in assets %}  
   {% set alt = settings.titleAsCaption ? asset.title : asset.alt is defined ? asset.alt : '' %}
   <a href="{{asset.url}}" {{ craft.lightbox.linkAttrs(asset, galleryRef) }}>
