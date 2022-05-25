@@ -133,6 +133,10 @@ class Settings extends Model
     public string $cssClassScreenReaderOnly = 'clb-sr-only';
     public string $cssClassesScreenReaderOnly = '';
 
+    // CSS Class for disabling document scroll when lightbox is active
+    public string $cssClassDisableScroll = 'clb-disablescroll';
+    public string $cssClassesDisableScroll = '';
+
     public function rules() : array
     {
         return [
@@ -185,6 +189,8 @@ class Settings extends Model
             ['cssClassesGalleryImage', 'required'],
             ['cssClassScreenReaderOnly', 'required'],
             ['cssClassesScreenReaderOnly', 'required'],
+            ['cssClassDisableScroll', 'required'],
+            ['cssClassesDisableScroll', 'required'],
         ];
     }
 }
