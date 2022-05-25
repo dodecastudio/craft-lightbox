@@ -2,7 +2,7 @@
 
 <img src="src/icon.svg" width="128" height="128" />
 
-Craft Lightbox renders a simple and lightweight image Lightbox that is both responsive and accessible. It may be suitable for anyone seeking a plug-and-play lightbox solution without much setup required.
+Craft Lightbox renders a simple and lightweight image lightbox that is both responsive and accessible. It's suitable for anyone seeking a quick plug-and-play lightbox solution without much setup required.
 
 ## Requirements
 
