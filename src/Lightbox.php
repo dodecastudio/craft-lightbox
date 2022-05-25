@@ -1,6 +1,6 @@
 <?php
 /**
- * Lightbox plugin for Craft CMS 4.x
+ * Lightbox plugin for Craft CMS 3.x
  *
  * @link      https://dodeca.studio
  * @copyright Copyright (c) 2022 Dodeca Studio
@@ -36,51 +36,30 @@ class Lightbox extends Plugin
     /**
      * @var Lightbox
      */
-    public static ?Lightbox $plugin = null;
+    public static $plugin;
 
     // Public Properties
 
     /**
      * @var string
      */
-    public string $schemaVersion = '1.0.0';
+    public $schemaVersion = '1.0.0';
 
     /**
      * @var bool
      */
-    public bool $hasCpSettings = false;
+    public $hasCpSettings = false;
 
     /**
      * @var bool
      */
-    public bool $hasCpSection = false;
+    public $hasCpSection = false;
 
     // Public Methods
-
-    /**
-     * @inheritdoc
-     */
-    public function __construct($id, $parent = null, array $config = [])
-    {
-        $config['components'] = [
-            'lightbox' => LightboxService::class,
-        ];
-
-        parent::__construct($id, $parent, $config);
-    }
-
-
-    /**
-     * @inheritdoc
-     */
     public function init()
     {
         parent::init();
         self::$plugin = $this;
-
-        // $this->setComponents([
-        //     'lightboxServices' => LightboxService::class,
-        // ]);
         
         // Add in our Twig extensions
         Craft::$app->view->registerTwigExtension(new LightboxTwigExtension());

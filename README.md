@@ -6,7 +6,7 @@ Craft Lightbox renders a simple and lightweight image lightbox that is both resp
 
 ## Requirements
 
-- Craft CMS 4.x
+- Craft CMS 3.x
 - PHP 8.0.2+
 
 ## Installation

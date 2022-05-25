@@ -1,6 +1,6 @@
 <?php
 /**
- * Lightbox plugin for Craft CMS 4.x
+ * Lightbox plugin for Craft CMS 3.x
  *
  * Render a Lightbox from a given image.
  *

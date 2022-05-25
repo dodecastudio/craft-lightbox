@@ -11,8 +11,9 @@
 
 <div id="{{settings.identifier}}-gallery-{{galleryRef}}" class="{{settings.cssClassGallery}} {{settings.cssClassesGallery}}" data-title="{{galleryTitle}}" data-ref="{{galleryRef}}">
 {% for asset in assets %}  
+  {% set alt = settings.titleAsCaption ? asset.title : asset.alt is defined ? asset.alt : '' %}
   <a href="{{asset.url}}" {{ craft.lightbox.linkAttrs(asset, galleryRef) }}>
-    <img src="{{asset.url}}" class="{{settings.cssClassGalleryImage}} {{settings.cssClassesGalleryImage}}" alt="{{asset.alt is empty ? settings.titleAsCaption ? asset.title : '' : asset.alt}}"/>
+    <img src="{{asset.url}}" class="{{settings.cssClassGalleryImage}} {{settings.cssClassesGalleryImage}}" alt="{{alt}}"/>
   </a>
 {% endfor %}
 </div>
