@@ -1,7 +1,7 @@
 {# Settings #}
 {% set assets = assets ?? false %}
-{% set galleryTitle = title|default(null) %}
-{% set galleryRef = galleryRef ? galleryRef|kebab : galleryTitle ? galleryTitle|kebab : "now"|date('isu') %}
+{% set galleryTitle = galleryTitle|default('') %}
+{% set galleryRef = craft.lightbox.getGalleryRef(galleryTitle) %}
 {% set settings = settings ?? false %}
 
 {# Render gallery of items #}
@@ -9,10 +9,10 @@
 
 {% apply spaceless %}
 
-<div id="{{settings.identifier}}-gallery-{{galleryRef}}" class="{{settings.cssClassGallery}} {{settings.cssClassesGallery}}" data-title="{{galleryTitle}}" data-ref="{{galleryRef}}">
+<div {{ attr(craft.lightbox.galleryAttrs(galleryTitle, galleryRef)) }}>
 {% for asset in assets %}  
   {% set alt = settings.titleAsCaption ? asset.title : asset.alt is defined ? asset.alt : '' %}
-  <a href="{{asset.url}}" {{ craft.lightbox.linkAttrs(asset, galleryRef) }}>
+  <a href="{{asset.url}}" {{ attr(craft.lightbox.linkAttrs(asset, galleryTitle, galleryRef)) }}>
     <img src="{{asset.url}}" class="{{settings.cssClassGalleryImage}} {{settings.cssClassesGalleryImage}}" alt="{{alt}}"/>
   </a>
 {% endfor %}
@@ -29,7 +29,7 @@
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   width: 100%;
 }
-.{{settings.cssClassGallery}} a.{{settings.cssClassGalleryLink}} {
+.{{settings.cssClassGallery}} .{{settings.cssClassGalleryLink}} {
   display: flex;
   align-items: center;
   justify-content: center;

@@ -78,9 +78,10 @@ class Lightbox extends Plugin
         parent::init();
         self::$plugin = $this;
 
-        // $this->setComponents([
-        //     'lightboxServices' => LightboxService::class,
-        // ]);
+        // Add Services
+        $this->setComponents([
+            'lightboxServices' => LightboxService::class,
+        ]);
         
         // Add in our Twig extensions
         Craft::$app->view->registerTwigExtension(new LightboxTwigExtension());

@@ -22,6 +22,7 @@ return [
     "DYNAMIC_LABEL_p" => "An overlaid lightbox gallery, titled {title}, containing {total} images. Pressing the Escape key will close and return you to the page. The left and right arrow keys will navigate through the gallery.",
     "UNTITLED_DYNAMIC_LABEL_s" => "An overlaid lightbox gallery containing 1 image. Pressing the Escape key will close and return you to the page.",
     "UNTITLED_DYNAMIC_LABEL_p" => "An overlaid lightbox gallery containing {total} images. Pressing the Escape key will close and return you to the page. The left and right arrow keys will navigate through the gallery.",
+    "IMAGE_CONTROL_LABEL" => "Opens the image titled {title}",
     
     // Controls
     "PREVIOUS" => "Previous",
