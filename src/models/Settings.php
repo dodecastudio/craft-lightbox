@@ -39,6 +39,9 @@ class Settings extends Model
     // Whether or not to apply transforms to images in the Lightbox in order to use Responsive Image markup.
     public bool $responsiveTransforms = true;
 
+    // Whether or not to apply render additional transforms to images in the Lightbox in WebP format.
+    public bool $responsiveTransformsWebp = true;
+
     // The maximum width or height for the smallest image transform, applied to an image in the Lightbox.
     public int $transformSizeSm = 320;
 
@@ -147,6 +150,7 @@ class Settings extends Model
             ['showImageCounter', 'required'],
             ['showImageCaptions', 'required'],
             ['responsiveTransforms', 'required'],
+            ['responsiveTransformsWebp', 'required'],
             ['transformSizeSm', 'required'],
             ['transformSizeMd', 'required'],
             ['transformSizeLg', 'required'],

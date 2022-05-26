@@ -44,6 +44,9 @@ return [
   // Whether or not to apply transforms to images in the Lightbox in order to use Responsive Image markup.
   'responsiveTransforms' => true,
   
+  // Whether or not to apply render additional transforms to images in the Lightbox in WebP format.
+  'responsiveTransformsWebp' => true,
+  
   // The maximum width or height for the smallest image transform, applied to an image in the Lightbox.
   'transformSizeSm' => 320,
   

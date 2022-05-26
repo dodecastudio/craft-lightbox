@@ -2,7 +2,7 @@
 import { addMultiple, focusFirstDescendant, focusableElements, removeMultiple } from './utils.js';
 
 // Lightbox functionality
-const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsive, srcsetSizes, translations }) => {
+const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsive, translations }) => {
   const body = document.querySelector('body');
   const lightbox = document.getElementById(`${identifier}-modal`);
   const lightboxWrapper = document.getElementById(`${identifier}-container`);
@@ -18,7 +18,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsi
   const lightboxGalleries = {};
 
   const lightboxSettings = {
-    timing: 500,
+    timing: 250,
     currentGallery: 'default',
     current: -1,
     open: false,
@@ -176,8 +176,8 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsi
         <picture class="${cssClasses.lightboxPicture}">
           <source
             type="${mimetype}"
-            srcset="${srcsetSizes.map((size, i) => {
-              return `${srcsetImages[i]} ${size}w,`;
+            srcset="${srcsetImages.map((image, i) => {
+              return `${image},`;
             })}
             ${url}" />
           <img
