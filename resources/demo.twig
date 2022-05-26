@@ -110,7 +110,7 @@
 
         {# Generate gallery markup #}
         <div {{ attr(newGalleryAttrs) }}>
-        {% for myAsset in myAssetQuery %}
+        {% for myAsset in myAssetQuery.all() %}
           <a href="{{myAsset.url}}" {{ attr(newLinkAttrs) }}><img src="{{myAsset.url}}" alt="{{myAsset.alt}}"/></a>
         {% endfor %}
         </div>

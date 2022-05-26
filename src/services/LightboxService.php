@@ -40,7 +40,7 @@ class LightboxService extends Component
         $gallery = $settings['identifier'] . '-gallery-' . $galleryRef;
         
         // Get title
-        $alt = isset($asset['alt']) || array_key_exists('alt', $asset) ? $asset['alt'] : '';
+        $alt = isset($asset['alt']) || defined($asset['alt']) ? $asset['alt'] : '';
         $title = $settings['titleAsCaption'] ? $asset['title'] : $alt;
 
         // Transforms
