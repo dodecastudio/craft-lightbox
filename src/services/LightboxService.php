@@ -40,14 +40,30 @@ class LightboxService extends Component
         $gallery = $settings['identifier'] . '-gallery-' . $galleryRef;
         
         // Get title
-        $alt = isset($asset['alt']) || defined($asset['alt']) ? $asset['alt'] : '';
+        $alt = $asset->isFieldEmpty('alt') ? '' : $asset['alt'];
         $title = $settings['titleAsCaption'] ? $asset['title'] : $alt;
 
         // Transforms
-        $transformSm = ['mode' => 'fit', 'width' => $settings['transformSizeSm'], 'height' => $settings['transformSizeSm']];
-        $transformMd = ['mode' => 'fit', 'width' => $settings['transformSizeMd'], 'height' => $settings['transformSizeMd']];
-        $transformLg = ['mode' => 'fit', 'width' => $settings['transformSizeLg'], 'height' => $settings['transformSizeLg']];
-        $transformXl = ['mode' => 'fit', 'width' => $settings['transformSizeXl'], 'height' => $settings['transformSizeXl']];
+        $srcset = null;
+        $srcsetWebp = null;
+        if ($settings['responsiveTransforms']) {
+            // Create transforms
+            $transformSm = ['mode' => 'fit', 'width' => $settings['transformSizeSm'], 'height' => $settings['transformSizeSm']];
+            $transformMd = ['mode' => 'fit', 'width' => $settings['transformSizeMd'], 'height' => $settings['transformSizeMd']];
+            $transformLg = ['mode' => 'fit', 'width' => $settings['transformSizeLg'], 'height' => $settings['transformSizeLg']];
+            $transformXl = ['mode' => 'fit', 'width' => $settings['transformSizeXl'], 'height' => $settings['transformSizeXl']];
+            // Render srcset
+            $srcset = $asset->getUrl($transformSm, true) . ' ' . $transformSm['width'] .'w,' . $asset->getUrl($transformMd, true) . ' ' . $transformMd['width'] .'w,' . $asset->getUrl($transformLg, true) . ' ' . $transformLg['width'] .'w,' . $asset->getUrl($transformXl, true) . ' ' . $transformXl['width'] .'w';
+            // Create WebP transforms
+            if ($settings['responsiveTransformsWebp'] && Craft::$app->images->getSupportsWebP()) {
+                $transformSmWebp = ['mode' => 'fit', 'width' => $settings['transformSizeSm'], 'height' => $settings['transformSizeSm'], 'format' => 'webp'];
+                $transformMdWebp = ['mode' => 'fit', 'width' => $settings['transformSizeMd'], 'height' => $settings['transformSizeMd'], 'format' => 'webp'];
+                $transformLgWebp = ['mode' => 'fit', 'width' => $settings['transformSizeLg'], 'height' => $settings['transformSizeLg'], 'format' => 'webp'];
+                $transformXlWebp = ['mode' => 'fit', 'width' => $settings['transformSizeXl'], 'height' => $settings['transformSizeXl'], 'format' => 'webp'];
+                // Render srcset
+                $srcsetWebp = $asset->getUrl($transformSmWebp, true) . ' ' . $transformSmWebp['width'] .'w,' . $asset->getUrl($transformMdWebp, true) . ' ' . $transformMdWebp['width'] .'w,' . $asset->getUrl($transformLgWebp, true) . ' ' . $transformLgWebp['width'] .'w,' . $asset->getUrl($transformXlWebp, true) . ' ' . $transformXlWebp['width'] .'w';
+            }
+        }
         
         // Attributes object
         $attributesObject = [
@@ -60,8 +76,9 @@ class LightboxService extends Component
                 'averagecolor' => $settings['useAverageColorThemeing'] && Craft::$app->plugins->getPlugin('blur-hash') ? \dodecastudio\blurhash\BlurHash::getInstance()->blurHashServices->averageColor($asset)->getHsl() : null,
                 'gallery' => $gallery,
                 'mimetype' => $asset['mimeType'],
-                'orientation' => $asset['width'] == $asset['height'] ? "square" : $asset['width'] > $asset['height'] ? "landscape" : "portrait",
-                'srcset' => $settings['responsiveTransforms'] ? $asset->getUrl($transformSm, true) . ',' . $asset->getUrl($transformMd, true) . ',' . $asset->getUrl($transformLg, true) . ',' .$asset->getUrl($transformLg, true) : null,
+                'orientation' => $asset['width'] == $asset['height'] ? "square" : ($asset['width'] > $asset['height'] ? "landscape" : "portrait"),
+                'srcset' => $srcset,
+                'srcsetwebp' => $srcsetWebp,
                 'title' => $title,
                 'url' => $asset['url'],
             ],
