@@ -2,7 +2,7 @@
 import { addMultiple, focusFirstDescendant, focusableElements, removeMultiple } from './utils.js';
 
 // Lightbox functionality
-const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsive, translations }) => {
+const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translations }) => {
   const body = document.querySelector('body');
   const lightbox = document.getElementById(`${identifier}-modal`);
   const lightboxWrapper = document.getElementById(`${identifier}-container`);
@@ -169,17 +169,32 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsi
 
   // HTML template for a lightbox image
   const lightboxImageTemplate = (i) => {
-    const { mimetype, srcsetImages, title, url } = lightboxGalleries[lightboxSettings.currentGallery].images[i];
+    const { mimetype, srcsetImages, srcsetImagesWebp, title, url } = lightboxGalleries[lightboxSettings.currentGallery].images[i];
     const isSupported = lightboxSettings.supportedResponsiveMimeTypes.includes(mimetype);
-    if (isSupported && responsive) {
+    const isResponsive = srcsetImages.length > 0;
+    if (isSupported && isResponsive) {
+      const source =
+        srcsetImages.length > 0
+          ? `
+      <source
+        type="${mimetype}"
+        srcset="${srcsetImages.map((image) => {
+          return `${image},`;
+        })}" />`
+          : '';
+      const sourceWebp =
+        srcsetImagesWebp.length > 0
+          ? `
+      <source
+        type="image/webp"
+        srcset="${srcsetImagesWebp.map((image) => {
+          return `${image},`;
+        })}" />`
+          : '';
       return `
         <picture class="${cssClasses.lightboxPicture}">
-          <source
-            type="${mimetype}"
-            srcset="${srcsetImages.map((image, i) => {
-              return `${image},`;
-            })}
-            ${url}" />
+          ${source}
+          ${sourceWebp}
           <img
             alt=""
             class="${cssClasses.lightboxImage}"
@@ -245,18 +260,21 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsi
 
   // Set position to a given x value
   const setPosition = (x) => {
-    lightboxContent.setAttribute('style', `transform: translate3d(${x}px, 0, 0)`);
+    lightboxContent.style.transform = `translate3d(${x}, 0, 0)`;
   };
 
   // Set end position for transition
   const addEndTransition = () => {
     const endPosition = lightboxSettings.touch.direction > 0 ? '-200%' : lightboxSettings.touch.direction < 0 ? '200%' : 0;
-    lightboxContent.setAttribute('style', `transition-property: transform; transition-duration: ${lightboxSettings.timing}ms; transform: translate3d(${endPosition}, 0, 0)`);
+    lightboxContent.style.transform = `translate3d(${endPosition}, 0, 0)`;
+    lightboxContent.style.transitionDuration = `${lightboxSettings.timing}ms`;
+    lightboxContent.style.transitionProperty = `transform`;
   };
 
   // Clear CSS transitions
   const clearTransitions = () => {
-    lightboxContent.style.removeProperty('transition');
+    lightboxContent.style.transitionDuration = `0ms`;
+    lightboxContent.style.transform = `transform: translate3d(0, 0, 0)`;
   };
 
   // Parse lightbox images
@@ -276,7 +294,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsi
       }
 
       // Dataset attrs
-      const { averagecolor = null, mimetype, orientation, ref = null, srcset, title, url } = lightboxLink.dataset;
+      const { averagecolor = null, mimetype, orientation, ref = null, srcset = '', srcsetwebp = '', title, url } = lightboxLink.dataset;
 
       // Add to lightbox images array for this gallery
       lightboxGalleries[galleryRef].images.push({
@@ -284,10 +302,11 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsi
         title,
         orientation,
         srcsetImages: srcset.split(','),
+        srcsetImagesWebp: srcsetwebp.split(','),
         mimetype,
         ref,
         gallery: galleryRef,
-        averagecolor,
+        averageColor: averagecolor,
       });
 
       const currentIndex = lightboxGalleries[galleryRef].images.length - 1;
@@ -382,7 +401,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, responsi
 
     // Click outside the lightbox content to close
     lightbox.addEventListener('click', (e) => {
-      if (e.target.id === `${identifier}-modal`) {
+      if (e.target.id === `${identifier}-modal` || e.target.id === `${identifier}-frame`) {
         e.preventDefault();
         closeLightbox();
       }
