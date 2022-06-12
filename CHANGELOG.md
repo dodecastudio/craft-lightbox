@@ -1,5 +1,10 @@
 # Lightbox Changelog
 
+## v1.0.0-beta4 - 2022-06-12
+
+- Added: Responsive image support to gallery markup.
+- Added: New transform size to config.
+
 ## v1.0.0-beta3 - 2022-06-12
 
 - Fixed: JavaScript bug with srcset output.
