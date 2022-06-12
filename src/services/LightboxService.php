@@ -137,6 +137,56 @@ class LightboxService extends Component
         return $ref3;
     }
 
+    /**
+     * getGalleryImageSrcset: Returns a srcset for images displayed in the gallery grid
+     *
+     * @param ref String
+     * @param title String
+     *
+     * @return string
+     */
+    public function getGalleryImageSrcset(Asset $asset = null): Array
+    {
+        // Get settings
+        $settings = Lightbox::getInstance()->getSettings();
+
+        // Transforms
+        $srcset = [];
+        $srcsetWebp = [];
+        if ($settings['responsiveTransforms'] && in_array($asset->mimeType, ['image/jpeg', 'image/png', 'image/tiff', 'image/webp'])) {
+            // Create transforms
+            $transformXs = ['mode' => 'fit', 'width' => $settings['transformSizeXs'], 'height' => $settings['transformSizeXs']];
+            $transformSm = ['mode' => 'fit', 'width' => $settings['transformSizeSm'], 'height' => $settings['transformSizeSm']];
+            $transformMd = ['mode' => 'fit', 'width' => $settings['transformSizeMd'], 'height' => $settings['transformSizeMd']];
+            // Render srcset
+            $srcset = array(
+                [ 'url' => $asset->getUrl($transformXs, true), 'width' => $transformXs['width'] ],
+                [ 'url' => $asset->getUrl($transformSm, true), 'width' => $transformSm['width'] ],
+                [ 'url' => $asset->getUrl($transformMd, true), 'width' => $transformMd['width'] ]
+            );
+            // Create WebP transforms
+            if ($settings['responsiveTransformsWebp'] && Craft::$app->images->getSupportsWebP()) {
+                $transformXsWebp = ['mode' => 'fit', 'width' => $settings['transformSizeXs'], 'height' => $settings['transformSizeXs'], 'format' => 'webp'];
+                $transformSmWebp = ['mode' => 'fit', 'width' => $settings['transformSizeSm'], 'height' => $settings['transformSizeSm'], 'format' => 'webp'];
+                $transformMdWebp = ['mode' => 'fit', 'width' => $settings['transformSizeMd'], 'height' => $settings['transformSizeMd'], 'format' => 'webp'];
+                // Render srcset
+                $srcsetWebp = array(
+                    [ 'url' => $asset->getUrl($transformXsWebp, true), 'width' => $transformXsWebp['width'] ],
+                    [ 'url' => $asset->getUrl($transformSmWebp, true), 'width' => $transformSmWebp['width'] ],
+                    [ 'url' => $asset->getUrl($transformMdWebp, true), 'width' => $transformMdWebp['width'] ]
+                );
+            }
+        }
+        
+        // Attributes object
+        $srcsets = [
+            'srcset' => $srcset,
+            'srcsetwebp' => $srcsetWebp,
+        ];
+
+        return $srcsets;
+    }
+
 
     /**
      * generateUniqueID: Returns a unique ID for a gallery ref
