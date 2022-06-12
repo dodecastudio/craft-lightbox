@@ -2,7 +2,7 @@
   "name": "dodecastudio/craft-lightbox",
   "description": "A simple, responsive, accessible and customisable lightbox gallery that integrates seamlessly with Craft CMS.",
   "type": "craft-plugin",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "license": "proprietary",
   "keywords": [
     "craft",
