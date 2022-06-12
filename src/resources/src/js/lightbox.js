@@ -173,6 +173,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
     const isSupported = lightboxSettings.supportedResponsiveMimeTypes.includes(mimetype);
     const isResponsive = srcsetImages.length > 0;
     if (isSupported && isResponsive) {
+      const defaultImage = srcsetImages[0].indexOf(' ') > 0 ? srcsetImages[0].substring(0, srcsetImages[0].indexOf(' ')) : srcsetImages[0];
       const source =
         srcsetImages.length > 0
           ? `
@@ -199,7 +200,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
             alt=""
             class="${cssClasses.lightboxImage}"
             loading="lazy"
-            src="${srcsetImages[0]}" />
+            src="${defaultImage}" />
         </picture>
       `;
     }
@@ -301,8 +302,8 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
         url,
         title,
         orientation,
-        srcsetImages: srcset.split(','),
-        srcsetImagesWebp: srcsetwebp.split(','),
+        srcsetImages: srcset.indexOf(',') > 0 ? srcset.split(',') : [],
+        srcsetImagesWebp: srcsetwebp.indexOf(',') > 0 ? srcsetwebp.split(',') : [],
         mimetype,
         ref,
         gallery: galleryRef,
