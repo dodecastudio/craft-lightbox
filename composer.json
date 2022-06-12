@@ -40,6 +40,9 @@
     "developerUrl": "https://dodeca.studio",
     "documentationUrl": "https://github.com/dodecastudio/craft-lightbox/blob/craft-v3/README.md",
     "changelogUrl": "https://github.com/dodecastudio/craft-lightbox/blob/craft-v3/CHANGELOG.md",
-    "class": "dodecastudio\\lightbox\\lightbox"
+    "class": "dodecastudio\\lightbox\\Lightbox",
+    "components": {
+      "services": "dodecastudio\\lightbox\\services\\LightboxService"
+    }
   }
 }
