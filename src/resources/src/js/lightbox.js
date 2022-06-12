@@ -174,24 +174,8 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
     const isResponsive = srcsetImages.length > 0;
     if (isSupported && isResponsive) {
       const defaultImage = srcsetImages[0].indexOf(' ') > 0 ? srcsetImages[0].substring(0, srcsetImages[0].indexOf(' ')) : srcsetImages[0];
-      const source =
-        srcsetImages.length > 0
-          ? `
-      <source
-        type="${mimetype}"
-        srcset="${srcsetImages.map((image) => {
-          return `${image},`;
-        })}" />`
-          : '';
-      const sourceWebp =
-        srcsetImagesWebp.length > 0
-          ? `
-      <source
-        type="image/webp"
-        srcset="${srcsetImagesWebp.map((image) => {
-          return `${image},`;
-        })}" />`
-          : '';
+      const source = srcsetImages.length > 0 ? `<source type="${mimetype}" srcset="${srcsetImages}" />` : '';
+      const sourceWebp = srcsetImagesWebp.length > 0 ? `<source type="image/webp" srcset="${srcsetImagesWebp}" />` : '';
       return `
         <picture class="${cssClasses.lightboxPicture}">
           ${source}
