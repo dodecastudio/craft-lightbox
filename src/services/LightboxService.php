@@ -151,22 +151,30 @@ class LightboxService extends Component
         $settings = Lightbox::getInstance()->getSettings();
 
         // Transforms
-        $srcset = null;
-        $srcsetWebp = null;
+        $srcset = [];
+        $srcsetWebp = [];
         if ($settings['responsiveTransforms'] && in_array($asset->mimeType, ['image/jpeg', 'image/png', 'image/tiff', 'image/webp'])) {
             // Create transforms
             $transformXs = ['mode' => 'fit', 'width' => $settings['transformSizeXs'], 'height' => $settings['transformSizeXs']];
             $transformSm = ['mode' => 'fit', 'width' => $settings['transformSizeSm'], 'height' => $settings['transformSizeSm']];
             $transformMd = ['mode' => 'fit', 'width' => $settings['transformSizeMd'], 'height' => $settings['transformSizeMd']];
             // Render srcset
-            $srcset = $asset->getUrl($transformXs, true) . ' ' . $transformXs['width'] .'w,' . $asset->getUrl($transformSm, true) . ' ' . $transformSm['width'] .'w,' . $asset->getUrl($transformMd, true) . ' ' . $transformMd['width'] .'w';
+            $srcset = array(
+                [ 'url' => $asset->getUrl($transformXs, true), 'width' => $transformXs['width'] ],
+                [ 'url' => $asset->getUrl($transformSm, true), 'width' => $transformSm['width'] ],
+                [ 'url' => $asset->getUrl($transformMd, true), 'width' => $transformMd['width'] ]
+            );
             // Create WebP transforms
             if ($settings['responsiveTransformsWebp'] && Craft::$app->images->getSupportsWebP()) {
                 $transformXsWebp = ['mode' => 'fit', 'width' => $settings['transformSizeXs'], 'height' => $settings['transformSizeXs'], 'format' => 'webp'];
                 $transformSmWebp = ['mode' => 'fit', 'width' => $settings['transformSizeSm'], 'height' => $settings['transformSizeSm'], 'format' => 'webp'];
                 $transformMdWebp = ['mode' => 'fit', 'width' => $settings['transformSizeMd'], 'height' => $settings['transformSizeMd'], 'format' => 'webp'];
                 // Render srcset
-                $srcsetWebp = $asset->getUrl($transformXsWebp, true) . ' ' . $transformXsWebp['width'] .'w,' . $asset->getUrl($transformSmWebp, true) . ' ' . $transformSmWebp['width'] .'w,' . $asset->getUrl($transformMdWebp, true) . ' ' . $transformMdWebp['width'] .'w';
+                $srcsetWebp = array(
+                    [ 'url' => $asset->getUrl($transformXsWebp, true), 'width' => $transformXsWebp['width'] ],
+                    [ 'url' => $asset->getUrl($transformSmWebp, true), 'width' => $transformSmWebp['width'] ],
+                    [ 'url' => $asset->getUrl($transformMdWebp, true), 'width' => $transformMdWebp['width'] ]
+                );
             }
         }
         

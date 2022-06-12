@@ -35,7 +35,7 @@ class LightboxVariable
       return Template::raw($template);
   }
 
-  public function gallery(AssetQuery $assetsQuery = null, String $galleryTitle = null) : Markup
+  public function gallery($assetsQuery = null, String $galleryTitle = null) : Markup
   {
 
       if ($assetsQuery instanceof AssetQuery) {

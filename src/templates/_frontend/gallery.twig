@@ -14,13 +14,13 @@
   {% set alt = settings.titleAsCaption ? asset.title : asset.alt is defined ? asset.alt : '' %}
   {% set srcsets = craft.lightbox.getGalleryImageSrcset(asset) %}
   <a href="{{asset.url}}" {{ attr(craft.lightbox.linkAttrs(asset, galleryTitle, galleryRef)) }}>
-    {% if srcsets.srcset != null or srcsets.srcsetwebp != null %}
+    {% if srcsets.srcset|length > 0 or srcsets.srcsetwebp|length > 0 %}
     <picture>
-      {% if srcsets.srcset != null %}
-      <source type="{{asset.mimeType}}" srcset="{{srcsets.srcset}}" />
+      {% if srcsets.srcset|length > 0 %}
+      <source type="{{asset.mimeType}}" srcset="{% for src in srcsets.srcset %}{{src.url}} {{src.width}}w{% if loop.index < srcsets.srcset|length %},{% endif %}{% endfor %}" />
       {% endif %}
-      {% if srcsets.srcsetwebp != null %}
-      <source type="image/webp" srcset="{{srcsets.srcsetwebp}}" />
+      {% if srcsets.srcsetwebp|length > 0 %}
+      <source type="image/webp" srcset="{% for src in srcsets.srcsetwebp %}{{src.url}} {{src.width}}w{% if loop.index < srcsets.srcsetwebp|length %},{% endif %}{% endfor %}" />
       {% endif %}
       <img src="{{asset.url}}" class="{{settings.cssClassGalleryImage}} {{settings.cssClassesGalleryImage}}" alt="{{alt}}" />
     </picture>
