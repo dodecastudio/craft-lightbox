@@ -37,13 +37,9 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
   const openLightbox = () => {
     const galleryTotal = lightboxGalleries[lightboxSettings.currentGallery].images.length;
     const galleryTitle = lightboxGalleries[lightboxSettings.currentGallery].title;
-    let galleryDescription =
-      galleryTotal == 1
-        ? translations.UNTITLED_DYNAMIC_LABEL_s
-        : translations.UNTITLED_DYNAMIC_LABEL_p;
+    let galleryDescription = galleryTotal == 1 ? translations.UNTITLED_DYNAMIC_LABEL_s : translations.UNTITLED_DYNAMIC_LABEL_p;
     if (galleryTitle !== 'untitled') {
-      galleryDescription =
-        galleryTotal == 1 ? translations.DYNAMIC_LABEL_s : translations.DYNAMIC_LABEL_p;
+      galleryDescription = galleryTotal == 1 ? translations.DYNAMIC_LABEL_s : translations.DYNAMIC_LABEL_p;
     }
     galleryDescription = galleryDescription.replace('{total}', galleryTotal);
     galleryDescription = galleryDescription.replace('{title}', galleryTitle);
@@ -121,8 +117,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
   // Render the navigational controls
   const renderInfo = (img) => {
     const galleryTotal = lightboxGalleries[lightboxSettings.currentGallery].images.length;
-    const { title } =
-      lightboxGalleries[lightboxSettings.currentGallery].images[lightboxSettings.current];
+    const { title } = lightboxGalleries[lightboxSettings.currentGallery].images[lightboxSettings.current];
     const currentImageIndex = lightboxSettings.current + 1;
     // Apply counter settings
     if (lightbox.dataset.showcounter) {
@@ -157,10 +152,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
 
   // Is there a valid next image?
   const isNext = () => {
-    return (
-      lightboxSettings.current <
-      lightboxGalleries[lightboxSettings.currentGallery].images.length - 1
-    );
+    return lightboxSettings.current < lightboxGalleries[lightboxSettings.currentGallery].images.length - 1;
   };
 
   // Disable navigation controls
@@ -177,11 +169,11 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
 
   // HTML template for a lightbox image
   const lightboxImageTemplate = (i) => {
-    const { mimetype, srcsetImages, srcsetImagesWebp, title, url } =
-      lightboxGalleries[lightboxSettings.currentGallery].images[i];
+    const { mimetype, srcsetImages, srcsetImagesWebp, title, url } = lightboxGalleries[lightboxSettings.currentGallery].images[i];
     const isSupported = lightboxSettings.supportedResponsiveMimeTypes.includes(mimetype);
     const isResponsive = srcsetImages.length > 0;
     if (isSupported && isResponsive) {
+      const defaultImage = srcsetImages[0].indexOf(' ') > 0 ? srcsetImages[0].substring(0, srcsetImages[0].indexOf(' ')) : srcsetImages[0];
       const source =
         srcsetImages.length > 0
           ? `
@@ -208,19 +200,14 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
             alt=""
             class="${cssClasses.lightboxImage}"
             loading="lazy"
-            src="${srcsetImages[0]}" />
+            src="${defaultImage}" />
         </picture>
       `;
     }
     // Do we have an image?
     if (mimetype.indexOf('image') < 0) {
       const ext = mimetype.substring(mimetype.lastIndexOf('/') + 1);
-      return `<p style="text-align: center;">${translations.UNSUPPORTED_FILETYPE.replace(
-        '{ext}',
-        ext
-      )}<br/><a href="${url}" target="_blank">${title}</a><br/>${url.substring(
-        url.lastIndexOf('/') + 1
-      )}</p>`;
+      return `<p style="text-align: center;">${translations.UNSUPPORTED_FILETYPE.replace('{ext}', ext)}<br/><a href="${url}" target="_blank">${title}</a><br/>${url.substring(url.lastIndexOf('/') + 1)}</p>`;
     }
     return `
       <img
@@ -251,9 +238,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
           lightboxContent.innerHTML = newThumbnail;
           if (averageColor) {
             const hslColor = averageColor.replace(/[^\d,]/g, '').split(',');
-            lightbox.style.backgroundColor = `hsla(${hslColor[0]},${hslColor[1]}%,${
-              hslColor[2] * 0.5
-            }%,0.95)`;
+            lightbox.style.backgroundColor = `hsla(${hslColor[0]},${hslColor[1]}%,${hslColor[2] * 0.5}%,0.95)`;
           }
           const img = lightboxContent.querySelector('img');
           if (img) {
@@ -281,12 +266,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
 
   // Set end position for transition
   const addEndTransition = () => {
-    const endPosition =
-      lightboxSettings.touch.direction > 0
-        ? '-200%'
-        : lightboxSettings.touch.direction < 0
-        ? '200%'
-        : 0;
+    const endPosition = lightboxSettings.touch.direction > 0 ? '-200%' : lightboxSettings.touch.direction < 0 ? '200%' : 0;
     lightboxContent.style.transform = `translate3d(${endPosition}, 0, 0)`;
     lightboxContent.style.transitionDuration = `${lightboxSettings.timing}ms`;
     lightboxContent.style.transitionProperty = `transform`;
@@ -306,10 +286,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
       // Set default settings for this gallery
       if (typeof lightboxGalleries[galleryRef] === 'undefined') {
         const galleryContainer = document.getElementById(galleryRef);
-        const galleryTitle =
-          galleryContainer && galleryContainer.dataset.title
-            ? galleryContainer.dataset.title
-            : 'untitled';
+        const galleryTitle = galleryContainer && galleryContainer.dataset.title ? galleryContainer.dataset.title : 'untitled';
         lightboxGalleries[galleryRef] = {
           ref: galleryRef,
           title: galleryTitle,
@@ -318,24 +295,15 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
       }
 
       // Dataset attrs
-      const {
-        averagecolor = null,
-        mimetype,
-        orientation,
-        ref = null,
-        srcset = '',
-        srcsetwebp = '',
-        title,
-        url,
-      } = lightboxLink.dataset;
+      const { averagecolor = null, mimetype, orientation, ref = null, srcset = '', srcsetwebp = '', title, url } = lightboxLink.dataset;
 
       // Add to lightbox images array for this gallery
       lightboxGalleries[galleryRef].images.push({
         url,
         title,
         orientation,
-        srcsetImages: srcset.split(','),
-        srcsetImagesWebp: srcsetwebp.split(','),
+        srcsetImages: srcset.indexOf(',') > 0 ? srcset.split(',') : [],
+        srcsetImagesWebp: srcsetwebp.indexOf(',') > 0 ? srcsetwebp.split(',') : [],
         mimetype,
         ref,
         gallery: galleryRef,
@@ -359,16 +327,13 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
         const lightboxFocusableElements = focusableElements(lightbox);
         const firstFocusableElement = lightboxFocusableElements[0];
         const altFirstFocusableElement = lightboxFocusableElements[1];
-        const lastFocusableElement =
-          lightboxFocusableElements[lightboxFocusableElements.length - 1];
-        const altLastFocusableElement =
-          lightboxFocusableElements[lightboxFocusableElements.length - 2];
+        const lastFocusableElement = lightboxFocusableElements[lightboxFocusableElements.length - 1];
+        const altLastFocusableElement = lightboxFocusableElements[lightboxFocusableElements.length - 2];
 
         const handleBackwardTab = () => {
           if (
             document.activeElement === firstFocusableElement ||
-            (firstFocusableElement.disabled &&
-              document.activeElement === altFirstFocusableElement) ||
+            (firstFocusableElement.disabled && document.activeElement === altFirstFocusableElement) ||
             (firstFocusableElement.disabled && document.activeElement === lightbox)
           ) {
             e.preventDefault();
@@ -506,20 +471,14 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
     lightboxContent.addEventListener(
       'touchend',
       () => {
-        if (
-          lightboxSettings.touch.lastPos - lightboxSettings.touch.startPos >
-          lightboxSettings.touch.moveThreshold
-        ) {
+        if (lightboxSettings.touch.lastPos - lightboxSettings.touch.startPos > lightboxSettings.touch.moveThreshold) {
           if (isPrevious()) {
             loadPreviousImage();
           } else {
             setPosition(0);
           }
         }
-        if (
-          lightboxSettings.touch.lastPos - lightboxSettings.touch.startPos <
-          -lightboxSettings.touch.moveThreshold
-        ) {
+        if (lightboxSettings.touch.lastPos - lightboxSettings.touch.startPos < -lightboxSettings.touch.moveThreshold) {
           if (isNext()) {
             loadNextImage();
           } else {
