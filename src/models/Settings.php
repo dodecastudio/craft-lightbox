@@ -42,7 +42,10 @@ class Settings extends Model
     // Whether or not to apply render additional transforms to images in the Lightbox in WebP format.
     public bool $responsiveTransformsWebp = false;
 
-    // The maximum width or height for the smallest image transform, applied to an image in the Lightbox.
+    // The maximum width or height for the extra small image transform, applied to an image in a Gallery.
+    public int $transformSizeXs = 160;
+
+    // The maximum width or height for the small image transform, applied to an image in a Gallery or Lightbox.
     public int $transformSizeSm = 320;
 
     // The maximum width or height for the medium image transform, applied to an image in the Lightbox.

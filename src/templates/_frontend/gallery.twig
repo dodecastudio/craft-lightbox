@@ -12,8 +12,21 @@
 <div {{ attr(craft.lightbox.galleryAttrs(galleryTitle, galleryRef)) }}>
 {% for asset in assets %}  
   {% set alt = settings.titleAsCaption ? asset.title : asset.alt is defined ? asset.alt : '' %}
+  {% set srcsets = craft.lightbox.getGalleryImageSrcset(asset) %}
   <a href="{{asset.url}}" {{ attr(craft.lightbox.linkAttrs(asset, galleryTitle, galleryRef)) }}>
-    <img src="{{asset.url}}" class="{{settings.cssClassGalleryImage}} {{settings.cssClassesGalleryImage}}" alt="{{alt}}"/>
+    {% if srcsets.srcset != null or srcsets.srcsetwebp != null %}
+    <picture>
+      {% if srcsets.srcset != null %}
+      <source type="{{asset.mimeType}}" srcset="{{srcsets.srcset}}" />
+      {% endif %}
+      {% if srcsets.srcsetwebp != null %}
+      <source type="image/webp" srcset="{{srcsets.srcsetwebp}}" />
+      {% endif %}
+      <img src="{{asset.url}}" class="{{settings.cssClassGalleryImage}} {{settings.cssClassesGalleryImage}}" alt="{{alt}}" />
+    </picture>
+    {% else %}
+    <img src="{{asset.url}}" class="{{settings.cssClassGalleryImage}} {{settings.cssClassesGalleryImage}}" alt="{{alt}}" />
+    {% endif %}
   </a>
 {% endfor %}
 </div>
@@ -26,7 +39,7 @@
 .{{settings.cssClassGallery}} {
   display: grid;
   grid-gap: 0.75rem;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 240px));
   width: 100%;
 }
 .{{settings.cssClassGallery}} .{{settings.cssClassGalleryLink}} {

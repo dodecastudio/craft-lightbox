@@ -37,7 +37,15 @@ class LightboxVariable
 
   public function gallery(AssetQuery $assetsQuery = null, String $galleryTitle = null) : Markup
   {
-      $assets = $assetsQuery->kind('image')->all();
+
+      if ($assetsQuery instanceof AssetQuery) {
+        $assets = $assetsQuery->kind('image')->all();
+      } else if (gettype($assetsQuery) == "array") {
+        $assets = $assetsQuery;
+      } else {
+        // Invalid input, abort
+        return Template::raw('');
+      }
 
       $galleryRef = Lightbox::getInstance()->lightboxServices->getGalleryRef($galleryTitle);
 
@@ -64,6 +72,11 @@ class LightboxVariable
   public function getGalleryRef(String $galleryTitle = null) : String
   {
       return Lightbox::getInstance()->lightboxServices->getGalleryRef($galleryTitle);
+  }
+
+  public function getGalleryImageSrcset(Asset $asset = null) : Array
+  {
+      return Lightbox::getInstance()->lightboxServices->getGalleryImageSrcset($asset);
   }
 
   public function getSettings() : Object
