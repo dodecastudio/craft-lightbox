@@ -25,6 +25,8 @@ Install the plugin as follows:
 
 ## Getting started
 
+The fastest way to take a quick look at the lightbox in action, is to copy the [demo.twig](resources/demo.twig) file in to your project and view it in a browser. So long as you have some assets in your project, you should see some content on that page.
+
 To get started, create an `AssetQuery` and give it to lightbox's `gallery` method. Then include lightbox's `render` method like so:
 
 ```twig
