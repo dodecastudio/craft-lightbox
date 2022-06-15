@@ -23,6 +23,19 @@ Install the plugin as follows:
 
 3.  In the Control Panel, go to Settings → Plugins and click the “Install” button for Lightbox.
 
-## Documentation
+## Getting started
 
-For full details on how to use Lightbox, please see the [Craft Lightbox Docs](https://github.com/dodecastudio/craft-lightbox/wiki).
+To get started, create an `AssetQuery` and give it to lightbox's `gallery` method. Then include lightbox's `render` method like so:
+
+```twig
+{# Fetch some images #}
+{% set myAssetQuery = craft.assets().limit(20) %}
+
+{# Display the images in a gallery #}
+{{ craft.lightbox.gallery(myAssetQuery) }}
+
+{# Embed the Lightbox on the page #}
+{{ craft.lightbox.render() }}
+```
+
+Please see the [Craft Lightbox Docs](https://github.com/dodecastudio/craft-lightbox/wiki) for a complete guide, including more [templating](https://github.com/dodecastudio/craft-lightbox/wiki/Templating) examples and full details on [configuration](https://github.com/dodecastudio/craft-lightbox/wiki/Configuration).
