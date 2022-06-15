@@ -1,5 +1,9 @@
 # Lightbox Changelog
 
+## v2.0.0 - 2022-06-15
+
+- Initial release.
+
 ## v2.0.0-beta2 - 2022-06-12
 
 - Added: Responsive image support to gallery markup.
@@ -9,4 +13,4 @@
 
 ## v2.0.0-beta1 - 2022-06-11
 
-- Initial release
+- Initial beta release.
