@@ -70,7 +70,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
     lightboxTotal.innerText = ``;
     lightboxCaption.style.display = 'none';
     lightboxContent.innerHTML = ``;
-    lightboxContent.classList.remove(`${cssClasses.lightboxContent}--loading`);
+    lightboxContent.classList.remove(cssClasses.lightboxImageLoading);
     lightboxSettings.lastKeyboardControl = false;
   };
 
@@ -177,12 +177,12 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
       const source = srcsetImages.length > 0 ? `<source type="${mimetype}" srcset="${srcsetImages}" />` : '';
       const sourceWebp = srcsetImagesWebp.length > 0 ? `<source type="image/webp" srcset="${srcsetImagesWebp}" />` : '';
       return `
-        <picture class="${cssClasses.lightboxPicture}">
+        <picture class="${cssClasses.lightboxPicture} ${cssClasses.lightboxPictureClasses}">
           ${source}
           ${sourceWebp}
           <img
             alt=""
-            class="${cssClasses.lightboxImage}"
+            class="${cssClasses.lightboxImage} ${cssClasses.lightboxImageClasses}"
             loading="lazy"
             src="${defaultImage}" />
         </picture>
@@ -196,7 +196,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
     return `
       <img
         alt=""
-        class="${cssClasses.lightboxImage}"
+        class="${cssClasses.lightboxImage} ${cssClasses.lightboxImageClasses}"
         loading="lazy"
         src="${url}" />
     `;
@@ -207,6 +207,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
     // Check this is a valid image to load
     const galleryTotal = lightboxGalleries[lightboxSettings.currentGallery].images.length;
     const isValid = i >= 0 && i <= galleryTotal - 1 && galleryTotal > 0;
+
     if (isValid) {
       if (!lightboxSettings.open) {
         openLightbox();
@@ -299,9 +300,11 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
       // Add click event to the anchor
       lightboxLink.addEventListener('click', (e) => {
         e.preventDefault();
-        lightboxSettings.currentGallery = galleryRef;
-        loadLightboxImage(currentIndex);
-        window.initialFocus = e.currentTarget;
+        if (!lightboxSettings.open) {
+          lightboxSettings.currentGallery = galleryRef;
+          loadLightboxImage(currentIndex);
+          window.initialFocus = e.currentTarget;
+        }
       });
     });
 

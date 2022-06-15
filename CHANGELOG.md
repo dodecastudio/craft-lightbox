@@ -1,5 +1,9 @@
 # Lightbox Changelog
 
+## v1.0.1 - 2022-06-15
+
+- Fixed: CSS Classes settings for the lightbox's image and picture elements were missing.
+
 ## v1.0.0 - 2022-06-15
 
 - Initial release.

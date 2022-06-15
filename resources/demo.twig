@@ -113,7 +113,7 @@
           {% set defaultLinkAttrs = craft.lightbox.linkAttrs(myAsset, myGalleryName) %}
           {% set newLinkAttrs = defaultLinkAttrs|merge({ 'class': ['w-half', 'float-left', craft.lightbox.getSettingValue('launchLightboxCssClass')]}) %}   
 
-          <a href="{{myAsset.url}}" {{ attr(newLinkAttrs) }}><img src="{{myAsset.url}}" alt="{{myAsset.alt}}"/></button>
+          <a href="{{myAsset.url}}" {{ attr(newLinkAttrs) }}><img src="{{myAsset.url}}" alt="{{myAsset.alt}}"/></a>
         {% endfor %}
         </div>
       
