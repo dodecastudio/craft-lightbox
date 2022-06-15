@@ -1,15 +1,15 @@
 <?php
 /**
- * Lightbox fieldtype plugin for Craft CMS 3.x
+ * Lightbox plugin for Craft CMS 3.x
  *
  * @link      https://dodeca.studio
  * @copyright Copyright (c) 2022 Dodeca Studio
  */
 
 /**
- * Lightbox fieldtype plugin config.php
+ * Lightbox plugin config.php
  *
- * This file is a template for the Lightbox fieldtype settings.
+ * This file is a template for the Lightbox settings.
  * 
  * To use it, copy it to 'craft/config/' and rename to 'lightbox.php'. Make any changes you wish to there.
  * 
