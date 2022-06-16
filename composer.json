@@ -34,15 +34,6 @@
       "dodecastudio\\lightbox\\": "src/"
     }
   },
-  "config": {
-    "platform": {
-      "php": ">=7.4"
-    },
-    "allow-plugins": {
-      "yiisoft/yii2-composer": true,
-      "craftcms/plugin-installer": true
-    }
-  },
   "extra": {
     "name": "Lightbox",
     "handle": "lightbox",
