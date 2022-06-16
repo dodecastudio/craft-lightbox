@@ -39,8 +39,8 @@
     "handle": "lightbox",
     "developer": "Dodeca Studio",
     "developerUrl": "https://dodeca.studio",
-    "documentationUrl": "https://github.com/dodecastudio/craft-lightbox/blob/craft-v4/README.md",
-    "changelogUrl": "https://github.com/dodecastudio/craft-lightbox/blob/craft-v4/CHANGELOG.md",
+    "documentationUrl": "https://github.com/dodecastudio/craft-lightbox/blob/main/README.md",
+    "changelogUrl": "https://github.com/dodecastudio/craft-lightbox/blob/main/CHANGELOG.md",
     "class": "dodecastudio\\lightbox\\Lightbox",
     "components": {
       "services": "dodecastudio\\lightbox\\services\\LightboxService"
