@@ -38,23 +38,6 @@ class Lightbox extends Plugin
      */
     public static ?Lightbox $plugin = null;
 
-    // Public Properties
-
-    /**
-     * @var string
-     */
-    public string $schemaVersion = '1.0.0';
-
-    /**
-     * @var bool
-     */
-    public bool $hasCpSettings = false;
-
-    /**
-     * @var bool
-     */
-    public bool $hasCpSection = false;
-
     // Public Methods
 
     /**
