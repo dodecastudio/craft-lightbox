@@ -26,6 +26,7 @@
     }
   ],
   "require": {
+    "php": ">=7.4",
     "craftcms/cms": "^3.0|^4.0"
   },
   "autoload": {
@@ -35,7 +36,7 @@
   },
   "config": {
     "platform": {
-      "php": ">7.4"
+      "php": ">=7.4"
     },
     "allow-plugins": {
       "yiisoft/yii2-composer": true,
