@@ -1,6 +1,10 @@
 # Lightbox Changelog
 
-## v1.0.1 - 2022-06-16
+## v1.0.3 - 2022-07-06
+
+- Fixed: Issue whereby assetbundle would not render in some situations.
+
+## v1.0.2 - 2022-06-16
 
 - Updated: Changed version number and composer.json file to better support Craft 3 and 4 across a single version.
 

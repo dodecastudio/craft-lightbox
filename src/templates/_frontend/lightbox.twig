@@ -324,6 +324,8 @@
 
 {# Render JavaScript #}
 {% do view.registerAssetBundle('dodecastudio\\lightbox\\assetbundles\\LightboxAsset') %}
+{{ endBody() }}
+
 {% js %}
 var lightboxSettings = {
   cssClasses: {
