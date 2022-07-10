@@ -10,7 +10,7 @@
 {# Render Lightbox HTML #}
 {% if settings %}
 
-{% html at endBody %}
+{% html %}
 {% apply spaceless %}
 
 <div id="{{settings.identifier}}-modal" role="dialog" aria-hidden="true" aria-label="{{"LABEL"|t("lightbox")}}" class="{{settings.cssClassLightboxModal}} {{settings.cssClassesLightboxModal}}" data-showcaptions="{{settings.showImageCaptions}}" data-showcounter="{{settings.showImageCounter}}" style="display: none;">
@@ -324,7 +324,6 @@
 
 {# Render JavaScript #}
 {% do view.registerAssetBundle('dodecastudio\\lightbox\\assetbundles\\LightboxAsset') %}
-{{ endBody() }}
 
 {% js %}
 var lightboxSettings = {

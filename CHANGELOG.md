@@ -1,5 +1,9 @@
 # Lightbox Changelog
 
+## v1.0.4 - 2022-07-10
+
+- Fixed: Removing use of `endBody` due to templating issues across different scenarios.
+
 ## v1.0.3 - 2022-07-06
 
 - Fixed: Issue whereby assetbundle would not render in some situations.
