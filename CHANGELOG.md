@@ -1,5 +1,12 @@
 # Lightbox Changelog
 
+## v1.0.5 - 2022-10-25
+
+- Added: Support for different types of lightbox content, including youtube and vimeo embeds, video and HTML content.
+- Added: New settings and translation strings, for use with different lightbox content.
+- Updated: Updated the default value for the `IMAGE_CONTROL_LABEL` translation string.
+- Updated: The demo template with new examples.
+
 ## v1.0.4 - 2022-07-10
 
 - Fixed: Removing use of `endBody` due to templating issues across different scenarios.
