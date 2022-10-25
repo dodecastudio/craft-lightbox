@@ -1,5 +1,9 @@
 # Lightbox Changelog
 
+## v1.0.6 - 2022-10-25
+
+- Fixed: Typo in templated CSS Class names.
+
 ## v1.0.5 - 2022-10-25
 
 - Added: Support for different types of lightbox content, including YouTube and Vimeo embeds as well as video assets and HTML content.
