@@ -153,8 +153,8 @@ return [
   'cssClassesIframe' => '',
 
   // CSS Classes for lightbox video content wrapper
-  'cssClassVideoWrapper' => 'clb-videowrapper',
-  'cssClassedVideoWrapper' => '',
+  'cssClassVideoContainer' => 'clb-videowrapper',
+  'cssClassesVideoContainer' => '',
 
   // CSS Classes for lightbox iframe content
   'cssClassIframe' => 'clb-iframe',

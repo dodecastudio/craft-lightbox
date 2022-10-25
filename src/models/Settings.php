@@ -144,12 +144,12 @@ class Settings extends Model
     public string $cssClassesDisableScroll = '';
 
     // CSS Classes for lightbox video content wrapper
-    public string $cssClassVideoWrapper = 'clb-videowrapper';
-    public string $cssClassedVideoWrapper = '';
+    public string $cssClassVideoContainer = 'clb-videocontainer';
+    public string $cssClassesVideoContainer = '';
 
     // CSS Classes for lightbox video content wrapper
     public string $cssClassVideo = 'clb-video';
-    public string $cssClassedVideo = '';
+    public string $cssClassesVideo = '';
 
     // CSS Classes for lightbox iframe content
     public string $cssClassIframe = 'clb-iframe';
@@ -210,8 +210,8 @@ class Settings extends Model
             ['cssClassesScreenReaderOnly', 'required'],
             ['cssClassDisableScroll', 'required'],
             ['cssClassesDisableScroll', 'required'],
-            ['cssClassVideoWrapper', 'required'],
-            ['cssClassesVideoWrapper', 'required'],
+            ['cssClassVideoContainer', 'required'],
+            ['cssClassesVideoContainer', 'required'],
             ['cssClassVideo', 'required'],
             ['cssClassesVideo', 'required'],
             ['cssClassIframe', 'required'],
