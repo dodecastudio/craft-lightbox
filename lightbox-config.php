@@ -148,13 +148,13 @@ return [
   'cssClassDisableScroll' => 'clb-disablescroll',
   'cssClassesDisableScroll' => '',
 
-  // CSS Classes for lightbox iframe content
+  // CSS Classes for lightbox video content wrapper
+  'cssClassVideoContainer' => 'clb-videocontainer',
+  'cssClassesVideoContainer' => '',
+
+  // CSS Classes for lightbox video element
   'cssClassVideo' => 'clb-video',
   'cssClassesVideo' => '',
-
-  // CSS Classes for lightbox video content wrapper
-  'cssClassVideoContainer' => 'clb-videowrapper',
-  'cssClassesVideoContainer' => '',
 
   // CSS Classes for lightbox iframe content
   'cssClassIframe' => 'clb-iframe',
