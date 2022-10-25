@@ -143,6 +143,18 @@ class Settings extends Model
     public string $cssClassDisableScroll = 'clb-disablescroll';
     public string $cssClassesDisableScroll = '';
 
+    // CSS Classes for lightbox video content wrapper
+    public string $cssClassVideoWrapper = 'clb-videowrapper';
+    public string $cssClassedVideoWrapper = '';
+
+    // CSS Classes for lightbox video content wrapper
+    public string $cssClassVideo = 'clb-video';
+    public string $cssClassedVideo = '';
+
+    // CSS Classes for lightbox iframe content
+    public string $cssClassIframe = 'clb-iframe';
+    public string $cssClassesIframe = '';
+
     public function rules() : array
     {
         return [
@@ -198,6 +210,12 @@ class Settings extends Model
             ['cssClassesScreenReaderOnly', 'required'],
             ['cssClassDisableScroll', 'required'],
             ['cssClassesDisableScroll', 'required'],
+            ['cssClassVideoWrapper', 'required'],
+            ['cssClassesVideoWrapper', 'required'],
+            ['cssClassVideo', 'required'],
+            ['cssClassesVideo', 'required'],
+            ['cssClassIframe', 'required'],
+            ['cssClassesIframe', 'required'],
         ];
     }
 }
