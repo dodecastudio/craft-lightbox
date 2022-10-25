@@ -147,10 +147,10 @@ return [
   // CSS Class for disabling document scroll when lightbox is active
   'cssClassDisableScroll' => 'clb-disablescroll',
   'cssClassesDisableScroll' => '',
-  
+
   // CSS Classes for lightbox iframe content
-  'cssClassIframe' => 'clb-iframe',
-  'cssClassesIframe' => '',
+  'cssClassVideo' => 'clb-video',
+  'cssClassesVideo' => '',
 
   // CSS Classes for lightbox video content wrapper
   'cssClassVideoContainer' => 'clb-videowrapper',
@@ -159,8 +159,4 @@ return [
   // CSS Classes for lightbox iframe content
   'cssClassIframe' => 'clb-iframe',
   'cssClassesIframe' => '',
-
-  // CSS Classes for lightbox iframe content
-  'cssClassVideo' => 'clb-video',
-  'cssClassesVideo' => '',
 ];
