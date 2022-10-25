@@ -192,13 +192,11 @@
 &lt;button &lcub;&lcub; attr(craft.lightbox.linkAttrs("#htmlcontent1", "My HTML gallery")) &rcub;&rcub;&gt;Launch HTML content&lt;/button&gt; 
 &lt;button &lcub;&lcub; attr(craft.lightbox.linkAttrs("#htmlcontent2", "My HTML gallery")) &rcub;&rcub;&gt;Launch more HTML content&lt;/button&gt;
 
-&lt;div style="display: none;"&gt;
-  &lt;div id="htmlcontent1"&gt;
-    &lt;p style="color: red; color: white; width: 200px; height: 200px;"&gt;Some special content to load.&lt;/p&gt;
-  &lt;/div&gt;
-  &lt;div id="htmlcontent2"&gt;
-    &lt;p style="color: blue; color: white; width: 200px; height: 200px;"&gt;Some more special content to load.&lt;/p&gt;
-  &lt;/div&gt;
+&lt;div id="htmlcontent1" style="display: none;"&gt;
+  &lt;p style="color: red; color: white; width: 200px; height: 200px;"&gt;Some special content to load.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id="htmlcontent2" style="display: none;"&gt;
+  &lt;p style="color: blue; color: white; width: 200px; height: 200px;"&gt;Some more special content to load.&lt;/p&gt;
 &lt;/div&gt;</code></pre>
 
         <h4>Output</h4>
@@ -207,13 +205,11 @@
         <button {{ attr(craft.lightbox.linkAttrs("#htmlcontent1", "My HTML gallery")) }} data-title="HTML example 1">Launch HTML content</button> 
         <button {{ attr(craft.lightbox.linkAttrs("#htmlcontent2", "My HTML gallery")) }} data-title="HTML example 2">Launch more HTML content</button>
 
-        <div style="display: none;">
-          <div id="htmlcontent1">
-            <p style="background-color: red; color: white; width: 200px; padding: 4em 1em; text-align: center;">Some special content to load.</p>
-          </div>
-          <div id="htmlcontent2">
-            <p style="background-color: blue; color: white; width: 200px; padding: 4em 1em; text-align: center;">Some more special content to load.</p>
-          </div>
+        <div id="htmlcontent1" style="display: none;">
+          <p style="background-color: red; color: white; width: 200px; padding: 4em 1em; text-align: center;">Some special content to load.</p>
+        </div>
+        <div id="htmlcontent2" style="display: none;">
+          <p style="background-color: blue; color: white; width: 200px; padding: 4em 1em; text-align: center;">Some more special content to load.</p>
         </div>
 
 
