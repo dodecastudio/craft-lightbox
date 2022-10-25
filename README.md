@@ -2,7 +2,7 @@
 
 <img src="src/icon.svg" width="128" height="128" />
 
-Craft Lightbox renders a simple and lightweight image lightbox that is both responsive and accessible. It's suitable for anyone seeking a quick plug-and-play lightbox solution without much setup required.
+Craft Lightbox renders a simple and lightweight lightbox that is both responsive and accessible. It's suitable for anyone seeking a quick plug-and-play lightbox solution without much setup required.
 
 ## Requirements
 
@@ -31,7 +31,7 @@ Otherwise, create an `AssetQuery` and give it to lightbox's `gallery` method. Th
 
 ```twig
 {# Fetch some images #}
-{% set myAssetQuery = craft.assets().limit(20) %}
+{% set myAssetQuery = craft.assets().kind("image").limit(20) %}
 
 {# Display the images in a gallery #}
 {{ craft.lightbox.gallery(myAssetQuery) }}
