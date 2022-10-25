@@ -139,7 +139,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
     const { title, type } = lightboxGalleries[lightboxSettings.currentGallery].content[lightboxSettings.current];
     const currentContentIndex = lightboxSettings.current + 1;
     // Apply counter settings
-    if (lightbox.dataset.showcounter) {
+    if (lightbox.dataset.showcounter && galleryTotal > 1) {
       lightboxTotal.style.removeProperty('display');
       lightboxTotal.innerHTML = `<span class="${cssClasses.screenReaderOnly} ${cssClasses.screenReaderOnlyClasses}">Image ${currentContentIndex} of ${galleryTotal}.</span><span aria-hidden="true">${currentContentIndex}/${galleryTotal}</span>`;
     }
