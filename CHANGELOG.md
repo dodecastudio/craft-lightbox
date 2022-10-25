@@ -1,5 +1,9 @@
 # Lightbox Changelog
 
+## v1.0.7 - 2022-10-25
+
+- Updated: Changed it so that the counter no longer displays when there is a single image in the lightbox.
+
 ## v1.0.6 - 2022-10-25
 
 - Fixed: Typo in templated CSS Class names.
