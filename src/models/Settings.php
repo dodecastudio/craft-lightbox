@@ -147,7 +147,7 @@ class Settings extends Model
     public string $cssClassVideoContainer = 'clb-videocontainer';
     public string $cssClassesVideoContainer = '';
 
-    // CSS Classes for lightbox video content wrapper
+    // CSS Classes for lightbox video element
     public string $cssClassVideo = 'clb-video';
     public string $cssClassesVideo = '';
 
