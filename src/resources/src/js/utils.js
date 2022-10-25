@@ -66,3 +66,22 @@ export const removeMultiple = (element, classList = '') => {
     element.classList.remove(...classArray);
   }
 };
+
+// Courtesy of @Lasnv on Stack Overflow: https://stackoverflow.com/a/8260383
+export const getYouTubeID = (url) => {
+  const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+  const match = url.match(regExp);
+  return match && match[7].length == 11 ? match[7] : false;
+};
+
+// Courtesy of @Matilda on Stack Overflow: https://stackoverflow.com/a/11660798
+export const getVimeoID = (url) => {
+  const regExp = /^.*(vimeo\.com\/)((channels\/[A-z]+\/)|(groups\/[A-z]+\/videos\/))?([0-9]+)/;
+  const match = url.match(regExp);
+  return match && match[5] ? match[5] : false;
+};
+
+export const getExtension = (url) => {
+  const match = url.split(/[#?]/)[0].split('.').pop().trim();
+  return match ? match : false;
+};

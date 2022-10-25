@@ -22,7 +22,12 @@ return [
     "DYNAMIC_LABEL_p" => "An overlaid lightbox gallery, titled {title}, containing {total} images. Pressing the Escape key will close and return you to the page. The left and right arrow keys will navigate through the gallery.",
     "UNTITLED_DYNAMIC_LABEL_s" => "An overlaid lightbox gallery containing 1 image. Pressing the Escape key will close and return you to the page.",
     "UNTITLED_DYNAMIC_LABEL_p" => "An overlaid lightbox gallery containing {total} images. Pressing the Escape key will close and return you to the page. The left and right arrow keys will navigate through the gallery.",
-    "IMAGE_CONTROL_LABEL" => "Opens the image titled {title}",
+    "IMAGE_CONTROL_LABEL" => "Opens the image titled {title} in the lightbox",
+    "VIDEOASSET_CONTROL_LABEL" => "Opens the video titled {title} in the lightbox",
+    "VIDEO_CONTROL_LABEL" => "Opens a video in the lightbox",
+    "YOUTUBE_CONTROL_LABEL" => "Opens a YouTube video in the lightbox",
+    "VIMEO_CONTROL_LABEL" => "Opens a Vimeo video in the lightbox",
+    "QUERY_CONTROL_LABEL" => "Opens HTML content in the lightbox",
     
     // Controls
     "PREVIOUS" => "Previous",
@@ -37,4 +42,8 @@ return [
 
     // Misc
     "UNSUPPORTED_FILETYPE" => "Unsupported filetype: {ext}",
+    "UNSUPPORTED_VIDEO" => "Unable to determine file information for embedding video.",
+    "UNSUPPORTED_YOUTUBE" => "Unable to determine YouTube ID.",
+    "UNSUPPORTED_VIMEO" => "Unable to determine Vimeo ID.",
+    "UNSUPPORTED_QUERY" => "Unable to load content.",
 ];

@@ -145,6 +145,20 @@
   clip-path:inset(50%);
   border:0;
 }
+#{{settings.identifier}}-modal .{{settings.cssClassVideoWrapper}} { 
+  aspect-ratio: 16/9;
+  width: 100%;
+  max-width: 90%;
+}
+#{{settings.identifier}}-modal .{{settings.cssClassVideo}} { 
+  width: 100%;
+  height: 100%;
+}
+#{{settings.identifier}}-modal .{{settings.cssClassIframe}} { 
+  border: 0;
+  width: 100%;
+  height: 100%;
+}
 {% endcss %}
 {% endif %}
 
@@ -337,6 +351,12 @@ var lightboxSettings = {
     screenReaderOnlyClasses: '{{settings.cssClassesScreenReaderOnly}}',
     disableScroll: '{{settings.cssClassDisableScroll}}',
     disableScrollClasses: '{{settings.cssClassesDisableScroll}}',
+    videoIframeWrapper: '{{settings.cssClassVideoWrapper}}',
+    videoIframeWrapperClasses: '{{settings.cssClassVideoWrapper}}',
+    video: '{{settings.cssClassVideo}}',
+    videoClasses: '{{settings.cssClassVideo}}',
+    iframe: '{{settings.cssClassIframe}}',
+    iframeClasses: '{{settings.cssClassesIframe}}',
   },
   identifier: '{{settings.identifier}}',
   launchLightboxCssClass: '{{settings.launchLightboxCssClass}}',
@@ -347,6 +367,10 @@ var lightboxSettings = {
     UNTITLED_DYNAMIC_LABEL_s: '{{"UNTITLED_DYNAMIC_LABEL_s"|t("lightbox")}}',
     UNTITLED_DYNAMIC_LABEL_p: '{{"UNTITLED_DYNAMIC_LABEL_p"|t("lightbox")}}',
     UNSUPPORTED_FILETYPE: '{{"UNSUPPORTED_FILETYPE"|t("lightbox")}}',
+    UNSUPPORTED_VIDEO: '{{"UNSUPPORTED_VIDEO"|t("lightbox")}}',
+    UNSUPPORTED_YOUTUBE: '{{"UNSUPPORTED_YOUTUBE"|t("lightbox")}}',
+    UNSUPPORTED_VIMEO: '{{"UNSUPPORTED_VIMEO"|t("lightbox")}}',
+    UNSUPPORTED_QUERY: '{{"UNSUPPORTED_QUERY"|t("lightbox")}}',
   }
 };
 document.addEventListener('DOMContentLoaded', () => window.initLightbox(lightboxSettings));
