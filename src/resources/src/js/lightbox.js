@@ -1,5 +1,5 @@
 // Dependencies
-import { addMultiple, focusFirstDescendant, focusableElements, removeMultiple } from './utils.js';
+import { addMultiple, focusFirstDescendant, focusableElements, getExtension, getYouTubeID, getVimeoID, removeMultiple } from './utils.js';
 
 // Lightbox functionality
 const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translations }) => {
@@ -30,12 +30,26 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
     },
     lastKeyboardControl: false,
     isTouchDevice: 'ontouchstart' in window,
-    supportedResponsiveMimeTypes: ['image/jpeg', 'image/png', 'image/tiff', 'image/webp'],
+    supportedResponsiveImageMimeTypes: ['image/jpeg', 'image/png', 'image/tiff', 'image/webp'],
+  };
+
+  const videoMimeTypeMap = {
+    '3gp': 'video/3gpp',
+    '3gp2': 'video/3gpp2',
+    avi: 'video/avi',
+    m3u8: 'application/x-mpegURL',
+    mkv: 'video/x-matroska',
+    mov: 'video/quicktime',
+    mp4: 'video/mp4',
+    mpeg: 'video/mpeg',
+    ogg: 'video/ogg',
+    webm: 'video/webm',
+    wmv: 'video/x-ms-wmv',
   };
 
   // Open the lightbox
   const openLightbox = () => {
-    const galleryTotal = lightboxGalleries[lightboxSettings.currentGallery].images.length;
+    const galleryTotal = lightboxGalleries[lightboxSettings.currentGallery].content.length;
     const galleryTitle = lightboxGalleries[lightboxSettings.currentGallery].title;
     let galleryDescription = galleryTotal == 1 ? translations.UNTITLED_DYNAMIC_LABEL_s : translations.UNTITLED_DYNAMIC_LABEL_p;
     if (galleryTitle !== 'untitled') {
@@ -59,6 +73,11 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
     if (window.initialFocus) {
       window.initialFocus.focus();
     }
+    clearLightbox();
+  };
+
+  // Clear lightbox content
+  const clearLightbox = () => {
     lightbox.style.display = 'none';
     lightbox.setAttribute('aria-label', translations.LABEL);
     lightbox.setAttribute('aria-hidden', true);
@@ -115,44 +134,46 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
   };
 
   // Render the navigational controls
-  const renderInfo = (img) => {
-    const galleryTotal = lightboxGalleries[lightboxSettings.currentGallery].images.length;
-    const { title } = lightboxGalleries[lightboxSettings.currentGallery].images[lightboxSettings.current];
-    const currentImageIndex = lightboxSettings.current + 1;
+  const renderInfo = (img = null) => {
+    const galleryTotal = lightboxGalleries[lightboxSettings.currentGallery].content.length;
+    const { title, type } = lightboxGalleries[lightboxSettings.currentGallery].content[lightboxSettings.current];
+    const currentContentIndex = lightboxSettings.current + 1;
     // Apply counter settings
     if (lightbox.dataset.showcounter) {
       lightboxTotal.style.removeProperty('display');
-      lightboxTotal.innerHTML = `<span class="${cssClasses.screenReaderOnly} ${cssClasses.screenReaderOnlyClasses}">Image ${currentImageIndex} of ${galleryTotal}.</span><span aria-hidden="true">${currentImageIndex}/${galleryTotal}</span>`;
+      lightboxTotal.innerHTML = `<span class="${cssClasses.screenReaderOnly} ${cssClasses.screenReaderOnlyClasses}">Image ${currentContentIndex} of ${galleryTotal}.</span><span aria-hidden="true">${currentContentIndex}/${galleryTotal}</span>`;
     }
     // Apply caption settings
     if (lightbox.dataset.showcaptions) {
       lightboxCaption.style.removeProperty('display');
       lightboxCaption.innerHTML = title;
     } else {
-      img.setAttribute('alt', title);
+      if (img && type == 'image') {
+        img.setAttribute('alt', title);
+      }
     }
   };
 
-  // Load the previous image
+  // Load the previous slide
   const loadPreviousImage = () => {
     lightboxSettings.touch.direction = -1;
-    loadLightboxImage(lightboxSettings.current - (isPrevious() ? 1 : 0));
+    loadLightboxContent(lightboxSettings.current - (isPrevious() ? 1 : 0));
   };
 
-  // Load the next image
+  // Load the next slide
   const loadNextImage = () => {
     lightboxSettings.touch.direction = 1;
-    loadLightboxImage(lightboxSettings.current + (isNext() ? 1 : 0));
+    loadLightboxContent(lightboxSettings.current + (isNext() ? 1 : 0));
   };
 
-  // Is there a valid previous image?
+  // Is there a valid previous slide?
   const isPrevious = () => {
     return lightboxSettings.current > 0;
   };
 
-  // Is there a valid next image?
+  // Is there a valid next slide?
   const isNext = () => {
-    return lightboxSettings.current < lightboxGalleries[lightboxSettings.currentGallery].images.length - 1;
+    return lightboxSettings.current < lightboxGalleries[lightboxSettings.currentGallery].content.length - 1;
   };
 
   // Disable navigation controls
@@ -167,10 +188,29 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
     lightboxNext.style.removeProperty('display');
   };
 
-  // HTML template for a lightbox image
+  const lightboxTemplate = (i) => {
+    const { type } = lightboxGalleries[lightboxSettings.currentGallery].content[i];
+    if (type === 'image') {
+      return lightboxImageTemplate(i);
+    }
+    if (type === 'video') {
+      return lightboxVideoTemplate(i);
+    }
+    if (type === 'youtube') {
+      return lightboxYouTubeTemplate(i);
+    }
+    if (type === 'vimeo') {
+      return lightboxVimeoTemplate(i);
+    }
+    if (type === 'query') {
+      return lightboxQueryTemplate(i);
+    }
+  };
+
+  // HTML image template
   const lightboxImageTemplate = (i) => {
-    const { mimetype, srcsetImages, srcsetImagesWebp, title, url } = lightboxGalleries[lightboxSettings.currentGallery].images[i];
-    const isSupported = lightboxSettings.supportedResponsiveMimeTypes.includes(mimetype);
+    const { mimetype, srcsetImages, srcsetImagesWebp, title, url } = lightboxGalleries[lightboxSettings.currentGallery].content[i];
+    const isSupported = lightboxSettings.supportedResponsiveImageMimeTypes.includes(mimetype);
     const isResponsive = srcsetImages.length > 0;
     if (isSupported && isResponsive) {
       const defaultImage = srcsetImages[0].indexOf(' ') > 0 ? srcsetImages[0].substring(0, srcsetImages[0].indexOf(' ')) : srcsetImages[0];
@@ -202,10 +242,67 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
     `;
   };
 
-  // Load an image from the lightbox images array
-  const loadLightboxImage = (i) => {
-    // Check this is a valid image to load
-    const galleryTotal = lightboxGalleries[lightboxSettings.currentGallery].images.length;
+  // HTML Video template
+  const lightboxVideoTemplate = (i) => {
+    const { mimetype, url } = lightboxGalleries[lightboxSettings.currentGallery].content[i];
+    const extension = getExtension(url);
+    const fileMimeType = mimetype ? mimetype : videoMimeTypeMap[extension];
+    if (url && extension && fileMimeType) {
+      return `
+      <div class="${cssClasses.videoIframeWrapper} ${cssClasses.videoIframeWrapperClasses}">
+        <video class="${cssClasses.video} ${cssClasses.videoClasses}" controls playsinline autoplay disablepictureinpicture>
+          <source src="${url}" type="${fileMimeType}" />
+        </video>
+      </div>`;
+    } else {
+      return `<p>${translations.UNSUPPORTED_VIDEO}</p>`;
+    }
+  };
+
+  // HTML YouTube template
+  const lightboxYouTubeTemplate = (i) => {
+    const { title, url } = lightboxGalleries[lightboxSettings.currentGallery].content[i];
+    const id = getYouTubeID(url);
+    if (url && id) {
+      return `
+      <div class="${cssClasses.videoIframeWrapper} ${cssClasses.videoIframeWrapperClasses}">
+        <iframe class="${cssClasses.iframe} ${cssClasses.iframeClasses}" title="${title}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&amp;playsinline=1"></iframe>
+      </div>
+    `;
+    } else {
+      return `<p>${translations.UNSUPPORTED_YOUTUBE}</p>`;
+    }
+  };
+
+  // HTML Vimeo template
+  const lightboxVimeoTemplate = (i) => {
+    const { title, url } = lightboxGalleries[lightboxSettings.currentGallery].content[i];
+    const id = getVimeoID(url);
+    if (url && id) {
+      return `<div class="${cssClasses.videoIframeWrapper} ${cssClasses.videoIframeWrapperClasses}">
+      <iframe class="${cssClasses.iframe} ${cssClasses.iframeClasses}" title="${title}" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; accelerometer; gyroscope" src="https://player.vimeo.com/video/${id}?loop=false&amp;autoplay=true&amp;muted=false&amp;gesture=media&amp;playsinline=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=false&amp;customControls=true"></iframe>
+    </div>
+    `;
+    } else {
+      return `<p>${translations.UNSUPPORTED_VIMEO}</p>`;
+    }
+  };
+
+  // HTML template from query
+  const lightboxQueryTemplate = (i) => {
+    const { target } = lightboxGalleries[lightboxSettings.currentGallery].content[i];
+    const element = document.querySelector(target);
+    if (element) {
+      return element.innerHTML;
+    } else {
+      return `<p>${translations.UNSUPPORTED_QUERY}</p>`;
+    }
+  };
+
+  // Load content from the lightbox content array
+  const loadLightboxContent = (i) => {
+    // Check this is a valid content to load
+    const galleryTotal = lightboxGalleries[lightboxSettings.currentGallery].content.length;
     const isValid = i >= 0 && i <= galleryTotal - 1 && galleryTotal > 0;
 
     if (isValid) {
@@ -217,9 +314,9 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
         renderControls();
         addEndTransition();
         window.setTimeout(() => {
-          resetImagePosition();
-          const newThumbnail = lightboxImageTemplate(i);
-          const { averageColor } = lightboxGalleries[lightboxSettings.currentGallery].images[i];
+          resetContentPosition();
+          const newThumbnail = lightboxTemplate(i);
+          const { averageColor, type } = lightboxGalleries[lightboxSettings.currentGallery].content[i];
           lightboxContent.innerHTML = newThumbnail;
           if (averageColor) {
             const hslColor = averageColor.replace(/[^\d,]/g, '').split(',');
@@ -239,7 +336,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
   };
 
   // Reset image position and transitions
-  const resetImagePosition = () => {
+  const resetContentPosition = () => {
     setPosition(0);
     clearTransitions();
   };
@@ -263,7 +360,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
     lightboxContent.style.transform = `transform: translate3d(0, 0, 0)`;
   };
 
-  // Parse lightbox images
+  // Parse lightbox content
   if (lightboxLinks.length > 0) {
     lightboxLinks.forEach((lightboxLink) => {
       const galleryRef = lightboxLink.dataset.gallery ? lightboxLink.dataset.gallery : 'default';
@@ -273,36 +370,38 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
         const galleryContainer = document.getElementById(galleryRef);
         const galleryTitle = galleryContainer && galleryContainer.dataset.title ? galleryContainer.dataset.title : 'untitled';
         lightboxGalleries[galleryRef] = {
+          content: [],
           ref: galleryRef,
           title: galleryTitle,
-          images: [],
         };
       }
 
       // Dataset attrs
-      const { averagecolor = null, mimetype, orientation, ref = null, srcset = '', srcsetwebp = '', title, url } = lightboxLink.dataset;
+      const { averagecolor = null, mimetype, orientation, ref = null, srcset = '', srcsetwebp = '', target, title, type, url } = lightboxLink.dataset;
 
-      // Add to lightbox images array for this gallery
-      lightboxGalleries[galleryRef].images.push({
-        url,
-        title,
+      // Add to lightbox content array for this gallery
+      lightboxGalleries[galleryRef].content.push({
+        averageColor: averagecolor,
+        gallery: galleryRef,
+        mimetype,
         orientation,
+        ref,
         srcsetImages: srcset.indexOf(',') > 0 ? srcset.split(',') : [],
         srcsetImagesWebp: srcsetwebp.indexOf(',') > 0 ? srcsetwebp.split(',') : [],
-        mimetype,
-        ref,
-        gallery: galleryRef,
-        averageColor: averagecolor,
+        target,
+        title,
+        type,
+        url,
       });
 
-      const currentIndex = lightboxGalleries[galleryRef].images.length - 1;
+      const currentIndex = lightboxGalleries[galleryRef].content.length - 1;
 
       // Add click event to the anchor
       lightboxLink.addEventListener('click', (e) => {
         e.preventDefault();
         if (!lightboxSettings.open) {
           lightboxSettings.currentGallery = galleryRef;
-          loadLightboxImage(currentIndex);
+          loadLightboxContent(currentIndex);
           window.initialFocus = e.currentTarget;
         }
       });
