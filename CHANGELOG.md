@@ -1,5 +1,9 @@
 # Lightbox Changelog
 
+## v1.0.8 - 2022-11-08
+
+- Fixed: Removed `Mixed` type declarations to fix PHP 7.4 compatability.
+
 ## v1.0.7 - 2022-10-25
 
 - Updated: Changed it so that the counter no longer displays when there is a single image in the lightbox.
