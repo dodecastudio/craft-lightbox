@@ -58,7 +58,7 @@ class LightboxVariable
       return Template::raw($template);
   }
 
-  public function linkAttrs(Mixed $source = null, String $galleryTitle = null, String $galleryRef = null) : Array
+  public function linkAttrs($source = null, String $galleryTitle = null, String $galleryRef = null) : Array
   {
       return Lightbox::getInstance()->lightboxServices->getLinkAttributes($source, $galleryTitle, $galleryRef);
   }

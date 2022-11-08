@@ -32,7 +32,7 @@ class LightboxService extends Component
      *
      * @return string
      */
-    public function getLinkAttributes(Mixed $source = null, String $galleryTitle = null, String $galleryRef = null): Array
+    public function getLinkAttributes($source = null, String $galleryTitle = null, String $galleryRef = null): Array
     {
         // Get settings
         $settings = Lightbox::getInstance()->getSettings();
@@ -274,7 +274,7 @@ class LightboxService extends Component
      *
      * @return string
      */
-    public function getType(Mixed $source): string 
+    public function getType($source): string 
     {
         $type = false;
 
