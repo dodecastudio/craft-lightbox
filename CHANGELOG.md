@@ -2,7 +2,7 @@
 
 ## v1.0.8 - 2022-11-08
 
-- Fixed: Removed `Mixed` type declarations to fix PHP 7.4 compatability.
+- Fixed: Removed `Mixed` type declarations to fix PHP 7.4 compatibility.
 
 ## v1.0.7 - 2022-10-25
 
