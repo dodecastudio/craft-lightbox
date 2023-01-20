@@ -1,5 +1,11 @@
 # Lightbox Changelog
 
+## v1.0.9 - 2023-01-20
+
+- Added: `captioncontent` data attribute allows for HTML captions in the lightbox.
+- Updated: Demo template with example of `captioncontent` data attribute.
+- Fixed: Removed duplicate markup for when a webp Asset is loaded in to the lightbox.
+
 ## v1.0.8 - 2022-11-08
 
 - Fixed: Removed `Mixed` type declarations to fix PHP 7.4 compatibility.
