@@ -92,11 +92,18 @@
 &lt;div &lcub;&lcub; attr(newGalleryAttrs) &rcub;&rcub;&gt;
 &lcub;% for myAsset in myAssetQuery %&rcub;
 
-  &lcub;# Override link class attributes #&rcub;
+  &lcub;# Override link attributes #&rcub;
   &lcub;% set defaultLinkAttrs = craft.lightbox.linkAttrs(myAsset, myGalleryName) %&rcub;
-  &lcub;% set newLinkAttrs = defaultLinkAttrs|merge(&lcub; 'class': ['w-half', 'float-left', craft.lightbox.getSettingValue('launchLightboxCssClass')]&rcub;) %&rcub;    
+  &lcub;% set defaultData = defaultLinkAttrs.data %&rcub;
+  &lcub;% set newLinkAttrs = defaultLinkAttrs|merge(&lcub; 
+    'class': ['w-half', 'float-left', craft.lightbox.getSettingValue('launchLightboxCssClass')],
+    'data': defaultData|merge(&lcub;
+      'captioncontent': '#caption-' ~ myAsset.id,
+    &rcub;)
+  &rcub;) %&rcub; 
 
-  &lt;a href="&lcub;&lcub;myAsset.url&rcub;&rcub;" &lcub;&lcub; attr(newLinkAttrs) &rcub;&rcub;&gt;&lt;img src="&lcub;&lcub;myAsset.url&rcub;&rcub;" alt="&lcub;&lcub;myAsset.alt&rcub;&rcub;"/&gt;&lt;/button&gt;
+  &lt;a href="&lcub;&lcub;myAsset.url&rcub;&rcub;" &lcub;&lcub; attr(newLinkAttrs) &rcub;&rcub;&gt;&lt;img src="&lcub;&lcub;myAsset.url&rcub;&rcub;" alt="&lcub;&lcub;myAsset.alt&rcub;&rcub;"/&gt;&lt;/a&gt;
+  &lt;div id="caption-&lcub;&lcub;myAsset.id&rcub;&rcub;" style="display:none;"&gt;&lt;span&gt;This asset is titled "&lcub;&lcub;myAsset.title&rcub;&rcub;". &lt;a href="&lcub;&lcub;myAsset.url&rcub;&rcub;"&gt;Download it here&lt;/a&gt;.&lt;/span&gt;&lt;/div&gt;
 &lcub;% endfor %&rcub;
 &lt;/div&gt;</code></pre>
 
@@ -117,11 +124,18 @@
           <div {{ attr(newGalleryAttrs) }}>
           {% for myAsset in myAssetQuery.all() %}
 
-            {# Override link class attributes #}
+            {# Override link attributes #}
             {% set defaultLinkAttrs = craft.lightbox.linkAttrs(myAsset, myGalleryName) %}
-            {% set newLinkAttrs = defaultLinkAttrs|merge({ 'class': ['w-half', 'float-left', craft.lightbox.getSettingValue('launchLightboxCssClass')]}) %}   
+            {% set defaultData = defaultLinkAttrs.data %}
+            {% set newLinkAttrs = defaultLinkAttrs|merge({ 
+              'class': ['w-half', 'float-left', craft.lightbox.getSettingValue('launchLightboxCssClass')],
+              'data': defaultData|merge({
+                'captioncontent': '#caption-' ~ myAsset.id,
+              })
+            }) %}
 
             <a href="{{myAsset.url}}" {{ attr(newLinkAttrs) }}><img src="{{myAsset.url}}" alt="{{myAsset.alt}}"/></a>
+            <div id="caption-{{myAsset.id}}" style="display:none;"><span>This asset is titled "{{myAsset.title}}". <a href="{{myAsset.url}}">Download it here</a>.</span></div>
           {% endfor %}
           </div>
         {% else %}

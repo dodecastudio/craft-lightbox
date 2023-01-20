@@ -19,7 +19,7 @@
       {% if srcsets.srcset|length > 0 %}
       <source type="{{asset.mimeType}}" srcset="{% for src in srcsets.srcset %}{{src.url}} {{src.width}}w{% if loop.index < srcsets.srcset|length %},{% endif %}{% endfor %}" />
       {% endif %}
-      {% if srcsets.srcsetwebp|length > 0 %}
+      {% if srcsets.srcsetwebp|length > 0 and asset.mimeType|lower != "image/webp" %}
       <source type="image/webp" srcset="{% for src in srcsets.srcsetwebp %}{{src.url}} {{src.width}}w{% if loop.index < srcsets.srcsetwebp|length %},{% endif %}{% endfor %}" />
       {% endif %}
       <img src="{{asset.url}}" class="{{settings.cssClassGalleryImage}} {{settings.cssClassesGalleryImage}}" alt="{{alt}}" />
