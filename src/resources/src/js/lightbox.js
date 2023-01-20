@@ -136,7 +136,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
   // Render the navigational controls
   const renderInfo = (img = null) => {
     const galleryTotal = lightboxGalleries[lightboxSettings.currentGallery].content.length;
-    const { title, type } = lightboxGalleries[lightboxSettings.currentGallery].content[lightboxSettings.current];
+    const { captionContent, title, type } = lightboxGalleries[lightboxSettings.currentGallery].content[lightboxSettings.current];
     const currentContentIndex = lightboxSettings.current + 1;
     // Apply counter settings
     if (lightbox.dataset.showcounter && galleryTotal > 1) {
@@ -146,7 +146,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
     // Apply caption settings
     if (lightbox.dataset.showcaptions) {
       lightboxCaption.style.removeProperty('display');
-      lightboxCaption.innerHTML = title;
+      lightboxCaption.innerHTML = lightboxCaptionTemplate(captionContent, title);
     } else {
       if (img && type == 'image') {
         img.setAttribute('alt', title);
@@ -299,6 +299,16 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
     }
   };
 
+  // HTML caption template
+  const lightboxCaptionTemplate = (captionElement, title) => {
+    const element = document.querySelector(captionElement);
+    if (element) {
+      return element.innerHTML;
+    } else {
+      return title;
+    }
+  };
+
   // Load content from the lightbox content array
   const loadLightboxContent = (i) => {
     // Check this is a valid content to load
@@ -377,11 +387,12 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
       }
 
       // Dataset attrs
-      const { averagecolor = null, mimetype, orientation, ref = null, srcset = '', srcsetwebp = '', target, title, type, url } = lightboxLink.dataset;
+      const { averagecolor = null, captioncontent = false, mimetype, orientation, ref = null, srcset = '', srcsetwebp = '', target, title, type, url } = lightboxLink.dataset;
 
       // Add to lightbox content array for this gallery
       lightboxGalleries[galleryRef].content.push({
         averageColor: averagecolor,
+        captionContent: captioncontent,
         gallery: galleryRef,
         mimetype,
         orientation,
