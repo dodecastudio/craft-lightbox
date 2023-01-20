@@ -77,7 +77,7 @@ class LightboxService extends Component
                 // Render srcset
                 $srcset = $asset->getUrl($transformSm, true) . ' ' . $transformSm['width'] .'w,' . $asset->getUrl($transformMd, true) . ' ' . $transformMd['width'] .'w,' . $asset->getUrl($transformLg, true) . ' ' . $transformLg['width'] .'w,' . $asset->getUrl($transformXl, true) . ' ' . $transformXl['width'] .'w';
                 // Create WebP transforms
-                if ($settings['responsiveTransformsWebp'] && Craft::$app->images->getSupportsWebP()) {
+                if ($settings['responsiveTransformsWebp'] && Craft::$app->images->getSupportsWebP() && strtolower($asset['mimeType']) != "image/webp") {
                     $transformSmWebp = ['mode' => 'fit', 'width' => $settings['transformSizeSm'], 'height' => $settings['transformSizeSm'], 'format' => 'webp'];
                     $transformMdWebp = ['mode' => 'fit', 'width' => $settings['transformSizeMd'], 'height' => $settings['transformSizeMd'], 'format' => 'webp'];
                     $transformLgWebp = ['mode' => 'fit', 'width' => $settings['transformSizeLg'], 'height' => $settings['transformSizeLg'], 'format' => 'webp'];
