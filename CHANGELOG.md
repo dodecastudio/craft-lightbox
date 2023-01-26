@@ -1,5 +1,9 @@
 # Lightbox Changelog
 
+## v1.0.10 - 2023-01-26
+
+- Fixed: Images displayed in the lightbox were missing their alt.
+
 ## v1.0.9 - 2023-01-20
 
 - Added: `captioncontent` data attribute allows for HTML captions in the lightbox.
