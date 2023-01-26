@@ -221,7 +221,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
           ${source}
           ${sourceWebp}
           <img
-            alt=""
+            alt="${title}"
             class="${cssClasses.lightboxImage} ${cssClasses.lightboxImageClasses}"
             loading="lazy"
             src="${defaultImage}" />
@@ -235,7 +235,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
     }
     return `
       <img
-        alt=""
+        alt="${title}"
         class="${cssClasses.lightboxImage} ${cssClasses.lightboxImageClasses}"
         loading="lazy"
         src="${url}" />
