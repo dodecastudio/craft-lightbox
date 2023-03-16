@@ -179,7 +179,9 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
   // Disable navigation controls
   const disableNavControls = () => {
     lightboxPrevious.style.setProperty('display', 'none');
+    lightboxPrevious.disabled = true;
     lightboxNext.style.setProperty('display', 'none');
+    lightboxNext.disabled = true;
   };
 
   // Enable navigation controls

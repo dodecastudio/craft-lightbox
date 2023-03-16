@@ -1,5 +1,9 @@
 # Lightbox Changelog
 
+## v1.0.11 - 2023-03-16
+
+- Fixed: The Next and Previous controls were not correctly disabled when the modal was launched, causing a bug that allowed focus to move out of the modal dialog without closing the modal. This meant that for single-image modals, the modal would not be compliant with [WCAG 2.4.3: Focus Order](https://www.w3.org/WAI/WCAG21/Understanding/focus-order.html).
+
 ## v1.0.10 - 2023-01-26
 
 - Fixed: Images displayed in the lightbox were missing their alt.
