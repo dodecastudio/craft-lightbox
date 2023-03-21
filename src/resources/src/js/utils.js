@@ -1,5 +1,5 @@
 export const focusableElements = (target) => {
-  return target.querySelectorAll('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex="0"]');
+  return target.querySelectorAll('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex="0"], iframe, video, audio');
 };
 
 export const focusFirstDescendant = (element, fallback) => {
