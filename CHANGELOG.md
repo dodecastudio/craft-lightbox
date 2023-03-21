@@ -1,5 +1,9 @@
 # Lightbox Changelog
 
+## v1.0.12 - 2023-03-21
+
+- Fixed: When loading embedded video content, such as that in `iframe` or `video` tags, tabbed focus of the content was not possible, preventing keyboard users from being able to control the media. Fixing this ensure compliance with [WCAG 2.4.3: Focus Order](https://www.w3.org/WAI/WCAG21/Understanding/focus-order.html).
+
 ## v1.0.11 - 2023-03-16
 
 - Fixed: The Next and Previous controls were not correctly disabled when the modal was launched, causing a bug that allowed focus to move out of the modal dialog without closing the modal. This meant that for single-image modals, the modal would not be compliant with [WCAG 2.4.3: Focus Order](https://www.w3.org/WAI/WCAG21/Understanding/focus-order.html).
