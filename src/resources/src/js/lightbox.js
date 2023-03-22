@@ -269,6 +269,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
       return `
       <div class="${cssClasses.videoIframeWrapper} ${cssClasses.videoIframeWrapperClasses}">
         <iframe class="${cssClasses.iframe} ${cssClasses.iframeClasses}" title="${title}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&amp;playsinline=1"></iframe>
+        <div tabindex="0"/>
       </div>
     `;
     } else {
@@ -283,6 +284,7 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
     if (url && id) {
       return `<div class="${cssClasses.videoIframeWrapper} ${cssClasses.videoIframeWrapperClasses}">
       <iframe class="${cssClasses.iframe} ${cssClasses.iframeClasses}" title="${title}" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; accelerometer; gyroscope" src="https://player.vimeo.com/video/${id}?loop=false&amp;autoplay=true&amp;muted=false&amp;gesture=media&amp;playsinline=false&amp;byline=false&amp;portrait=false&amp;title=false&amp;speed=true&amp;transparent=false&amp;customControls=true"></iframe>
+      <div tabindex="0"/>
     </div>
     `;
     } else {
