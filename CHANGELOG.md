@@ -1,5 +1,9 @@
 # Lightbox Changelog
 
+## v1.0.13 - 2023-03-22
+
+- Resolved: Previous issue was only partially fixed, now fully fixed for both directions of tabbed focus.
+
 ## v1.0.12 - 2023-03-21
 
 - Fixed: When loading embedded video content, such as that in `iframe` or `video` tags, tabbed focus of the content was not possible, preventing keyboard users from being able to control the media. Fixing this ensure compliance with [WCAG 2.4.3: Focus Order](https://www.w3.org/WAI/WCAG21/Understanding/focus-order.html).
