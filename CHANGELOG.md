@@ -1,5 +1,9 @@
 # Lightbox Changelog
 
+## 2.0.0 - 2024-04-22
+
+- Updated: Added support for Craft 5.
+
 ## v1.0.13 - 2023-03-22
 
 - Resolved: Previous issue was only partially fixed, now fully fixed for both directions of tabbed focus.
