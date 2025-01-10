@@ -62,8 +62,8 @@ class LightboxService extends Component
         if ($type == "image") {
             // Get title
             $asset = $source;
-            $alt = $asset->isFieldEmpty('alt') ? '' : $asset['alt'];
-            $title = $settings['titleAsCaption'] ? $asset['title'] : $alt;
+            $alt = trim($asset['alt'] ?? '') === '' ? '' : $asset['alt'];
+            $title = $settings['titleAsCaption'] || $alt === '' ? $asset['title'] : $alt;
 
             // Transforms
             $srcset = null;
@@ -104,8 +104,8 @@ class LightboxService extends Component
             if ($source instanceof Asset) {
                 // Attributes object
                 $asset = $source;
-                $alt = $asset->isFieldEmpty('alt') ? '' : $asset['alt'];
-                $title = $settings['titleAsCaption'] ? $asset['title'] : $alt;
+                $alt = trim($asset['alt'] ?? '') === '' ? '' : $asset['alt'];
+                $title = $settings['titleAsCaption'] || $alt === '' ? $asset['title'] : $alt;
                 $attributesObject['aria']['label'] = Craft::t('lightbox', 'VIDEOASSET_CONTROL_LABEL', ['title' => $title]);
                 $attributesObject['data']['mimetype'] = $asset['mimeType'];
                 $attributesObject['data']['title'] = $title;
