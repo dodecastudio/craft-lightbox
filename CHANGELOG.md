@@ -1,5 +1,9 @@
 # Lightbox Changelog
 
+## 2.0.1 - 2025-01-10
+
+- Fixed: A bug when checking for an asset's `alt` attribute would cause the `titleAsCaption` config setting to be ignored.
+
 ## 2.0.0 - 2024-04-22
 
 - Updated: Added support for Craft 5.
