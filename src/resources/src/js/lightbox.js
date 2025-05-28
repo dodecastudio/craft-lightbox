@@ -335,6 +335,8 @@ const initLightbox = ({ cssClasses, identifier, launchLightboxCssClass, translat
           if (averageColor) {
             const hslColor = averageColor.replace(/[^\d,]/g, '').split(',');
             lightbox.style.backgroundColor = `hsla(${hslColor[0]},${hslColor[1]}%,${hslColor[2] * 0.5}%,0.95)`;
+          } else {
+            lightbox.style.backgroundColor = ``;
           }
           const img = lightboxContent.querySelector('img');
           if (img) {
