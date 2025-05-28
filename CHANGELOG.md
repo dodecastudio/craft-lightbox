@@ -1,5 +1,10 @@
 # Lightbox Changelog
 
+## 2.0.2 - 2025-05-28
+
+- Updated: When `useAverageColorThemeing` is enabled, the lightbox will now ignore black as the average color for an image, as this is a default value returned by the Craft Blurhash plugin.
+- Fixed: When `useAverageColorThemeing` is enabled and an image is displayed in the lightbox, the background will now correctly reset to transparent on images that do not have an average color.
+
 ## 2.0.1 - 2025-01-10
 
 - Fixed: A bug when checking for an asset's `alt` attribute would cause the `titleAsCaption` config setting to be ignored.

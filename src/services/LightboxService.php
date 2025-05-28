@@ -89,13 +89,22 @@ class LightboxService extends Component
 
             // Attributes object
             $attributesObject['aria']['label'] = Craft::t('lightbox', 'IMAGE_CONTROL_LABEL', ['title' => $title]);
-            $attributesObject['data']['averagecolor'] = $settings['useAverageColorThemeing'] && Craft::$app->plugins->getPlugin('blur-hash') ? \dodecastudio\blurhash\BlurHash::getInstance()->blurHashServices->averageColor($asset)->getHsl() : null;
             $attributesObject['data']['mimetype'] = $asset['mimeType'];
             $attributesObject['data']['orientation'] = $asset['width'] == $asset['height'] ? "square" : ($asset['width'] > $asset['height'] ? "landscape" : "portrait");
             $attributesObject['data']['srcset'] = $srcset;
             $attributesObject['data']['srcsetwebp'] = $srcsetWebp;
             $attributesObject['data']['title'] = $title;
             $attributesObject['data']['url'] = $asset['url'];
+            $attributesObject['data']['averagecolor'] = null;
+            
+            // Average color check (ignore black as being invalid)
+            if ($settings['useAverageColorThemeing'] && Craft::$app->plugins->getPlugin('blur-hash')) {
+                $averageColor = \dodecastudio\blurhash\BlurHash::getInstance()->blurHashServices->averageColor($asset);
+                if ($averageColor && $averageColor->getHex() != "#000000") {
+                    $attributesObject['data']['averagecolor'] = $averageColor->getHsl();
+                }                
+            }
+
         }
 
         // Video
